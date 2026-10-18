@@ -1,0 +1,117 @@
+<div class="page-container">
+  <div class="page-header">
+    <a mat-icon-button routerLink="/reports" class="back-btn">
+      <mat-icon>arrow_back</mat-icon>
+    </a>
+    <div>
+      <h1>รายละเอียดรายงาน</h1>
+      <p>ข้อมูลทั้งหมดของรายงานนี้</p>
+    </div>
+  </div>
+
+  @if (loading()) {
+  <div class="state-box">
+    <mat-progress-spinner diameter="36" mode="indeterminate" />
+    <span>กำลังโหลดข้อมูล...</span>
+  </div>
+  } @else if (report(); as r) {
+  <mat-card class="report-card">
+    <div class="report-header">
+      <h2>รายงาน #{{ r.Report_ID }}</h2>
+      <app-status-badge
+        [label]="r.Status === 'Resolved' ? 'ดำเนินการแล้ว' : 'รอดำเนินการ'"
+        [variant]="r.Status === 'Resolved' ? 'success' : 'warning'"
+        [icon]="r.Status === 'Resolved' ? 'check_circle' : 'hourglass_top'"
+      />
+    </div>
+
+    <div class="report-content">
+      <div class="row">
+        <mat-icon>flag</mat-icon>
+        <div>
+          <div class="label">เหตุผลการรายงาน</div>
+          <div class="value highlight">{{ r.Reason || 'ไม่ระบุ' }}</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <mat-icon>person</mat-icon>
+        <div>
+          <div class="label">ผู้รายงาน</div>
+          <div class="value">
+            @if (r.Reporter) {
+            <a class="user-name user-link" [routerLink]="['/owners', r.Reporter.Owner_ID]">{{ r.Reporter.Username }}</a>
+            <span class="user-email">({{ r.Reporter.Email }})</span>
+            } @else {
+            <span class="text-muted">ไม่พบข้อมูล</span>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <mat-icon>person_off</mat-icon>
+        <div>
+          <div class="label">ผู้ถูกรายงาน</div>
+          <div class="value">
+            @if (r.Reported_User) {
+            <a class="user-name user-link" [routerLink]="['/members', r.Reported_User.Member_ID]">{{ r.Reported_User.Username }}</a>
+            <span class="user-email">({{ r.Reported_User.Email }})</span>
+            } @else {
+            <span class="text-muted">ไม่พบข้อมูล</span>
+            }
+          </div>
+        </div>
+      </div>
+
+      @if (r.Booking) {
+      <div class="row">
+        <mat-icon>apartment</mat-icon>
+        <div>
+          <div class="label">เกี่ยวข้องกับการจอง</div>
+          <div class="value">
+            <span class="dorm-name">{{ r.Booking.Dorm?.Dorm_Name || 'ไม่ระบุหอพัก' }}</span>
+            @if (r.Booking.Room_Type?.Room_Type_Name) {
+            <span class="room-type">&middot; {{ r.Booking.Room_Type?.Room_Type_Name }}</span>
+            }
+          </div>
+        </div>
+      </div>
+      }
+
+      <div class="row">
+        <mat-icon>event</mat-icon>
+        <div>
+          <div class="label">วันที่รายงาน</div>
+          <div class="value">{{ r.Reported_At | date: 'd MMM y, HH:mm' }}</div>
+        </div>
+      </div>
+
+      @if (r.Closed_At) {
+      <div class="row">
+        <mat-icon>event_available</mat-icon>
+        <div>
+          <div class="label">วันที่ปิดเรื่อง</div>
+          <div class="value">{{ r.Closed_At | date: 'd MMM y, HH:mm' }}</div>
+        </div>
+      </div>
+      }
+    </div>
+
+    <div class="actions">
+      <button
+        mat-flat-button
+        [color]="r.Status === 'Resolved' ? 'warn' : 'primary'"
+        [disabled]="processing()"
+        (click)="toggleStatus()"
+      >
+        @if (processing()) {
+        <mat-progress-spinner diameter="18" mode="indeterminate" />
+        } @else {
+        <span>{{ r.Status === 'Resolved' ? 'เปิดเรื่องใหม่' : 'ปิดเรื่อง' }}</span>
+        }
+      </button>
+    </div>
+  </mat-card>
+  }
+</div>

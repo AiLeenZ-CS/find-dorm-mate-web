@@ -1,0 +1,41 @@
+// 🚀 ป้ายทรงปุ่ม (pill) สีทึบ + เงานุ่มนวล ให้ดูมีน้ำหนักกว่า chip แบบเดิม
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-family: 'Prompt', sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  color: #ffffff;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+
+  mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+  }
+
+  &.variant-success {
+    background: linear-gradient(135deg, #10b981, #059669);
+  }
+
+  &.variant-warning {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+  }
+
+  &.variant-danger {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+  }
+
+  &.variant-info {
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+  }
+
+  &.variant-neutral {
+    background: linear-gradient(135deg, #94a3b8, #64748b);
+  }
+}

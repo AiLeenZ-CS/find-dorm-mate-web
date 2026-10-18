@@ -1,0 +1,71 @@
+<div class="page-header">
+  <h1>สวัสดี, {{ auth.currentUser()?.username }} 👋</h1>
+  <p>ภาพรวมระบบจัดการ Find a Dorm Mate</p>
+</div>
+
+<div class="stat-grid">
+  <a class="stat-card" routerLink="/owners">
+    <div class="stat-icon pending">
+      <mat-icon>fact_check</mat-icon>
+    </div>
+    <div class="stat-body">
+      <span class="stat-value">{{ pendingOwnerCount() ?? '—' }}</span>
+      <span class="stat-label">คำร้องเจ้าของหอพักที่รอตรวจสอบ</span>
+    </div>
+  </a>
+
+  <a class="stat-card" routerLink="/dormitories">
+    <div class="stat-icon dorm">
+      <mat-icon>apartment</mat-icon>
+    </div>
+    <div class="stat-body">
+      <span class="stat-value">{{ pendingDormCount() ?? '—' }}</span>
+      <span class="stat-label">หอพักที่รอตรวจสอบ</span>
+    </div>
+  </a>
+
+  <a class="stat-card" routerLink="/reports">
+    <div class="stat-icon report">
+      <mat-icon>shield</mat-icon>
+    </div>
+    <div class="stat-body">
+      <span class="stat-value">{{ pendingReportCount() ?? '—' }}</span>
+      <span class="stat-label">รายงานผู้ใช้ที่รอดำเนินการ</span>
+    </div>
+  </a>
+
+  @if (auth.isMasterAdmin()) {
+  <a class="stat-card" routerLink="/manage-admins">
+    <div class="stat-icon admin">
+      <mat-icon>admin_panel_settings</mat-icon>
+    </div>
+    <div class="stat-body">
+      <span class="stat-value">{{ adminCount() ?? '—' }}</span>
+      <span class="stat-label">บัญชี Admin ทั้งหมด</span>
+    </div>
+  </a>
+  }
+</div>
+
+<mat-card class="welcome-card">
+  <mat-card-content>
+    <h2>เริ่มต้นใช้งาน</h2>
+    <p>ใช้เมนูด้านซ้ายเพื่อจัดการสมาชิก เจ้าของหอพัก หอพัก และรายงานปัญหาต่างๆ ในระบบ</p>
+    <div class="actions">
+      <a mat-flat-button color="primary" routerLink="/owners">
+        <mat-icon>fact_check</mat-icon>
+        ตรวจสอบคำร้อง
+      </a>
+      <a mat-stroked-button routerLink="/members">
+        <mat-icon>group</mat-icon>
+        จัดการสมาชิก
+      </a>
+      @if (auth.isMasterAdmin()) {
+      <a mat-stroked-button routerLink="/manage-admins">
+        <mat-icon>person_add</mat-icon>
+        จัดการ Admin
+      </a>
+      }
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,95 @@
+<div class="page-header">
+  <div>
+    <h1>สมาชิกทั้งหมด</h1>
+    <p>ค้นหาสมาชิก แล้วคลิกดูรายละเอียดแต่ละบัญชี</p>
+  </div>
+  <button mat-stroked-button (click)="refresh()">
+    <mat-icon>refresh</mat-icon>
+    รีเฟรช
+  </button>
+</div>
+
+<div class="filter-bar">
+  <mat-form-field appearance="outline" class="search-field">
+    <mat-label>ค้นหาด้วย Username หรือ Email</mat-label>
+    <input matInput [(ngModel)]="search" (ngModelChange)="onSearchInput()" />
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="filter-field">
+    <mat-label>สถานะบัญชี</mat-label>
+    <mat-select [(ngModel)]="status" (selectionChange)="refresh()">
+      <mat-option value="All">ทั้งหมด</mat-option>
+      <mat-option value="Active">ใช้งานได้</mat-option>
+      <mat-option value="Suspended">ถูกระงับ</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+@if (loading()) {
+  <div class="state-box">
+    <mat-progress-spinner diameter="36" mode="indeterminate" />
+    <span>กำลังโหลดข้อมูล...</span>
+  </div>
+} @else if (members().length === 0) {
+  <div class="state-box empty">
+    <mat-icon>group_off</mat-icon>
+    <span>ไม่พบข้อมูลสมาชิกที่ตรงกับเงื่อนไข</span>
+  </div>
+} @else {
+  <div class="table-card">
+    <table mat-table [dataSource]="sortedMembers()" matSort (matSortChange)="onSortChange($event)">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ชื่อ</th>
+        <td mat-cell *matCellDef="let member">
+          <div class="name-cell">
+            <app-auth-image
+              class="avatar"
+              [src]="member.Profile_Image"
+              [fallback]="'https://api.dicebear.com/7.x/initials/svg?seed=' + member.Username"
+              [alt]="member.Username"
+            />
+            <div>
+              <div class="name">{{ fullName(member) }}</div>
+              <div class="username">&#64;{{ member.Username }}</div>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>อีเมล</th>
+        <td mat-cell *matCellDef="let member">{{ member.Email }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>สถานะ</th>
+        <td mat-cell *matCellDef="let member">
+          <app-status-badge
+            [label]="member.Account_Status === 'Suspended' ? 'ถูกระงับ' : 'ใช้งานได้'"
+            [variant]="member.Account_Status === 'Suspended' ? 'danger' : 'success'"
+            [icon]="member.Account_Status === 'Suspended' ? 'block' : 'check_circle'"
+          />
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let member">
+          <button mat-stroked-button (click)="viewDetail(member)">
+            <mat-icon>visibility</mat-icon>
+            ดูรายละเอียด
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: columns"
+        class="clickable-row"
+        (click)="viewDetail(row)"
+      ></tr>
+    </table>
+  </div>
+}

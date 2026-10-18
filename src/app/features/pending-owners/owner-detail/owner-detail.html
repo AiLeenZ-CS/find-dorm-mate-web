@@ -1,0 +1,125 @@
+<div class="page-container">
+  <div class="page-header">
+    <a mat-icon-button routerLink="/owners" class="back-btn">
+      <mat-icon>arrow_back</mat-icon>
+    </a>
+    <div>
+      <h1>รายละเอียดเจ้าของหอพัก</h1>
+      <p>ตรวจสอบข้อมูลทั้งหมดก่อนอนุมัติ/ปฏิเสธ</p>
+    </div>
+  </div>
+
+  @if (loading()) {
+  <div class="state-box">
+    <mat-progress-spinner diameter="36" mode="indeterminate" />
+    <span>กำลังโหลดข้อมูล...</span>
+  </div>
+  } @else if (owner(); as o) {
+  <div class="detail-layout">
+    <!-- คอลัมน์ซ้าย: ข้อมูลโปรไฟล์ -->
+    <mat-card class="profile-card">
+      <div class="profile-header">
+        <app-auth-image class="avatar" [src]="o.Profile_Image"
+          [fallback]="'https://api.dicebear.com/7.x/initials/svg?seed=' + o.Username" [alt]="o.Username" />
+        <div class="profile-title">
+          <h2>{{ fullName(o) }}</h2>
+          <span class="username">&#64;{{ o.Username }}</span>
+        </div>
+        <div class="chip-stack">
+          <app-status-badge
+            [label]="statusLabel(o.Status)"
+            [variant]="statusVariant(o.Status)"
+            [icon]="statusIcon(o.Status)"
+          />
+          <app-status-badge
+            [label]="o.Account_Status === 'Suspended' ? 'ถูกระงับ' : 'ใช้งานได้'"
+            [variant]="o.Account_Status === 'Suspended' ? 'danger' : 'success'"
+            [icon]="o.Account_Status === 'Suspended' ? 'block' : 'check_circle'"
+          />
+        </div>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="label">อีเมล</span>
+          <span class="value">{{ o.Email }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">เบอร์โทรศัพท์</span>
+          <span class="value">{{ o.Phone || 'ไม่ระบุ' }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">เลขบัตรประชาชน</span>
+          <span class="value">{{ o.ID_Card_No || 'ไม่ระบุ' }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">เชื่อมต่อ Google</span>
+          <span class="value">{{ o.Google_ID ? 'เชื่อมต่อแล้ว' : 'ไม่ได้เชื่อมต่อ' }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">ยื่นเรื่องเมื่อ</span>
+          <span class="value">{{ o.Submitted_Date | date: 'd MMM y, HH:mm' }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">อนุมัติเมื่อ</span>
+          <span class="value">
+            {{ o.Approved_Date ? (o.Approved_Date | date: 'd MMM y, HH:mm') : 'ยังไม่อนุมัติ' }}
+          </span>
+        </div>
+      </div>
+
+      @if (o.Status === 'Rejected' && o.Admin_Note) {
+      <div class="note-box">
+        <mat-icon>info_outline</mat-icon>
+        <div>
+          <div class="note-title">เหตุผลที่ปฏิเสธ</div>
+          <div class="note-text">{{ o.Admin_Note }}</div>
+        </div>
+      </div>
+      }
+
+      <div class="actions">
+        @if (o.Status === 'Pending') {
+        <button mat-stroked-button color="warn" [disabled]="processing()" (click)="reject()">
+          <mat-icon>close</mat-icon>
+          ปฏิเสธ
+        </button>
+        <button mat-flat-button color="primary" class="approve-btn" [disabled]="processing()" (click)="approve()">
+          @if (processing()) {
+          <mat-progress-spinner diameter="18" mode="indeterminate" />
+          } @else {
+          <ng-container>
+            <mat-icon>check</mat-icon>
+            อนุมัติ
+          </ng-container>
+          }
+        </button>
+        } @else if (o.Status === 'Approved') {
+        <button mat-flat-button [color]="o.Account_Status === 'Active' ? 'warn' : 'primary'" [disabled]="processing()"
+          (click)="toggleAccountStatus()">
+          @if (processing()) {
+          <mat-progress-spinner diameter="18" mode="indeterminate" />
+          } @else {
+          <span>{{ o.Account_Status === 'Active' ? 'ระงับบัญชีนี้' : 'เปิดใช้งานบัญชีนี้' }}</span>
+          }
+        </button>
+        }
+      </div>
+    </mat-card>
+
+    <!-- คอลัมน์ขวา: รูปบัตรประชาชน -->
+    @if (o.ID_Card_Image) {
+    <mat-card class="id-card-card">
+      <h3>รูปบัตรประชาชน</h3>
+      <div class="id-card-preview" (click)="viewFullIdCard()">
+        <app-auth-image [src]="o.ID_Card_Image" alt="รูปบัตรประชาชน" />
+        <span class="preview-label">
+          <mat-icon>zoom_in</mat-icon>
+          ดูรูปเต็ม
+        </span>
+      </div>
+    </mat-card>
+    }
+  </div>
+  }
+</div>

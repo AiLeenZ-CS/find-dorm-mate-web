@@ -1,0 +1,210 @@
+<div class="page-container">
+  <div class="page-header">
+    <a mat-icon-button routerLink="/dormitories" class="back-btn">
+      <mat-icon>arrow_back</mat-icon>
+    </a>
+    <div>
+      <h1>รายละเอียดหอพัก</h1>
+      <p>ข้อมูลทั้งหมดสำหรับตรวจสอบก่อนอนุมัติ/ปฏิเสธ</p>
+    </div>
+  </div>
+
+  @if (loading()) {
+  <div class="state-box">
+    <mat-progress-spinner diameter="36" mode="indeterminate" />
+    <span>กำลังโหลดข้อมูล...</span>
+  </div>
+  } @else if (dorm(); as d) {
+  <div class="detail-layout">
+    <!-- คอลัมน์ซ้าย: ข้อมูลหลักและรูปภาพ -->
+    <div class="main-column">
+      <mat-card class="gallery-card">
+        @if (images(d).length > 0) {
+        <div class="main-image">
+          <app-auth-image [src]="images(d)[activeImageIndex()]" [alt]="d.Dorm_Name" />
+          <app-status-badge
+            class="image-badge"
+            [label]="statusLabel(d.Approval_Status)"
+            [variant]="statusVariant(d.Approval_Status)"
+            [icon]="statusIcon(d.Approval_Status)"
+          />
+        </div>
+        @if (images(d).length > 1) {
+        <div class="thumb-row">
+          @for (img of images(d); track $index) {
+          <app-auth-image [src]="img" [class.active]="$index === activeImageIndex()"
+            (click)="activeImageIndex.set($index)" alt="thumbnail" />
+          }
+        </div>
+        }
+        } @else {
+        <div class="main-image placeholder">
+          <mat-icon>apartment</mat-icon>
+          <app-status-badge
+            class="image-badge"
+            [label]="statusLabel(d.Approval_Status)"
+            [variant]="statusVariant(d.Approval_Status)"
+            [icon]="statusIcon(d.Approval_Status)"
+          />
+        </div>
+        }
+      </mat-card>
+
+      <mat-card class="info-card">
+        <h2>{{ d.Dorm_Name }}</h2>
+        <p class="address">{{ d.Address || 'ไม่มีที่อยู่ระบุ' }}</p>
+
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="label">ประเภทหอพัก</span>
+            <span class="value">{{ d.Dorm_Type || 'ไม่ระบุ' }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">สถานะการใช้งาน</span>
+            <span class="value">{{ d.Dorm_Status }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">ค่ามัดจำ</span>
+            <span class="value">{{ d.Deposit_Fee ? '฿' + d.Deposit_Fee : 'ไม่ระบุ' }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">ค่าประกัน</span>
+            <span class="value">{{ d.Insurance_Fee ? '฿' + d.Insurance_Fee : 'ไม่ระบุ' }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">ระยะเวลาสัญญา</span>
+            <span class="value">
+              {{ d.Contract_Duration ? d.Contract_Duration + ' เดือน' : 'ไม่ระบุ' }}
+            </span>
+          </div>
+          <div class="info-item">
+            <span class="label">ค่าน้ำ</span>
+            <span class="value">{{ d.Water_Rate || 'ไม่ระบุ' }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">ค่าไฟ</span>
+            <span class="value">{{ d.Electric_Rate || 'ไม่ระบุ' }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">ช่องทางติดต่อ</span>
+            <span class="value">{{ d.Contact_Info || 'ไม่ระบุ' }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">อนุญาตสัตว์เลี้ยง</span>
+            <span class="value">{{ d.Is_Pet_Friendly ? 'อนุญาต' : 'ไม่อนุญาต' }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">อนุญาตสูบบุหรี่</span>
+            <span class="value">{{ d.Is_Smoking_Allowed ? 'อนุญาต' : 'ไม่อนุญาต' }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">ลงประกาศเมื่อ</span>
+            <span class="value">{{ d.Created_At | date: 'd MMM y, HH:mm' }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">แก้ไขล่าสุด</span>
+            <span class="value">{{ d.Updated_At | date: 'd MMM y, HH:mm' }}</span>
+          </div>
+        </div>
+
+        @if (d.Approval_Status === 'Rejected' && d.Admin_Note) {
+        <div class="note-box">
+          <mat-icon>info_outline</mat-icon>
+          <div>
+            <div class="note-title">เหตุผลที่ปฏิเสธ</div>
+            <div class="note-text">{{ d.Admin_Note }}</div>
+          </div>
+        </div>
+        }
+
+        @if (d.Ownership_Proof_Image) {
+        <div class="ownership-proof">
+          <h3>เอกสารสิทธิ์ครอบครอง</h3>
+          <div class="ownership-proof-preview" (click)="viewFullOwnershipProof()">
+            <app-auth-image [src]="d.Ownership_Proof_Image" alt="เอกสารสิทธิ์ครอบครอง" />
+          </div>
+        </div>
+        }
+
+        @if (d.Approval_Status === 'Pending') {
+        <div class="actions">
+          <button mat-stroked-button color="warn" [disabled]="processing()" (click)="reject()">
+            <mat-icon>close</mat-icon>
+            ปฏิเสธ
+          </button>
+          <button mat-flat-button color="primary" class="approve-btn" [disabled]="processing()" (click)="approve()">
+            @if (processing()) {
+            <mat-progress-spinner diameter="18" mode="indeterminate" />
+            } @else {
+            <ng-container>
+              <mat-icon>check</mat-icon>
+              อนุมัติ
+            </ng-container>
+            }
+          </button>
+        </div>
+        }
+      </mat-card>
+
+      @if (d.Room_Types.length > 0) {
+      <mat-card class="room-types-card">
+        <h3>ประเภทห้องพัก ({{ d.Room_Types.length }})</h3>
+        <div class="room-type-list">
+          @for (room of d.Room_Types; track room.Room_Type_ID) {
+          <div class="room-type-row">
+            <div class="room-info">
+              <div class="room-name">{{ room.Room_Type_Name || 'ไม่ระบุชื่อ' }}</div>
+              <span class="room-sub">{{ room.Room_Type || '-' }}</span>
+            </div>
+            <div class="room-price">฿{{ room.Price_Per_Month || '-' }}/เดือน</div>
+            <div class="room-rooms">
+              ว่าง {{ room.Remaining_Rooms ?? '-' }} / {{ room.Total_Rooms ?? '-' }}
+            </div>
+            <app-status-badge
+              [label]="room.Room_Status === 'Full' ? 'เต็ม' : 'ว่าง'"
+              [variant]="room.Room_Status === 'Full' ? 'danger' : 'success'"
+              [icon]="room.Room_Status === 'Full' ? 'block' : 'check_circle'"
+            />
+          </div>
+          }
+        </div>
+      </mat-card>
+      }
+    </div>
+
+    <!-- คอลัมน์ขวา: ข้อมูลรอง -->
+    <div class="side-column">
+      @if (d.Owner) {
+      <mat-card class="owner-card">
+        <h3>เจ้าของหอพัก</h3>
+        <div class="owner-row">
+          <div class="avatar">{{ d.Owner.Username.charAt(0).toUpperCase() }}</div>
+          <div class="owner-details">
+            <div class="owner-name">&#64;{{ d.Owner.Username }}</div>
+            <div class="owner-email">{{ d.Owner.Email }}</div>
+          </div>
+        </div>
+        <div class="owner-phone">
+          <mat-icon>call</mat-icon>
+          <span>{{ d.Owner.Phone || 'ไม่ระบุ' }}</span>
+        </div>
+        <a mat-stroked-button routerLink="/owners/{{ d.Owner.Owner_ID }}" class="view-owner-btn">
+          ดูโปรไฟล์เจ้าของหอพัก
+        </a>
+      </mat-card>
+      }
+
+      @if (d.Facilities.length > 0) {
+      <mat-card class="facilities-card">
+        <h3>สิ่งอำนวยความสะดวก ({{ d.Facilities.length }})</h3>
+        <div class="facility-chips">
+          @for (facility of d.Facilities; track facility.Facility_ID) {
+          <mat-chip class="facility-chip">{{ facility.Facility_Name }}</mat-chip>
+          }
+        </div>
+      </mat-card>
+      }
+    </div>
+  </div>
+  }
+</div>

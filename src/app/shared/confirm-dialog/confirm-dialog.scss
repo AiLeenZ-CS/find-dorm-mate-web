@@ -1,0 +1,104 @@
+$text-dark: #111827;
+$text-muted: #6b7280;
+$accent-color: #6366f1;
+$danger-color: #ef4444;
+
+*:not(mat-icon) {
+  font-family: 'Prompt', sans-serif;
+}
+
+.confirm-dialog {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 28px 20px;
+  min-width: 360px;
+  max-width: 420px;
+  text-align: center;
+}
+
+.icon-badge {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.3);
+
+  mat-icon {
+    color: #ffffff;
+    font-size: 28px;
+    width: 28px;
+    height: 28px;
+  }
+}
+
+.tone-danger .icon-badge {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  box-shadow: 0 6px 16px rgba(239, 68, 68, 0.3);
+}
+
+h2[mat-dialog-title] {
+  margin: 0 0 8px;
+  padding: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: $text-dark;
+  letter-spacing: -0.2px;
+}
+
+mat-dialog-content {
+  padding: 0;
+  margin: 0;
+  max-height: none;
+}
+
+.message {
+  margin: 0;
+  color: $text-muted;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+mat-dialog-actions {
+  width: 100%;
+  padding: 24px 0 0;
+  margin: 0;
+  justify-content: center !important;
+
+  button {
+    border-radius: 8px;
+    font-weight: 500;
+    height: 42px;
+    padding: 0 22px;
+    font-size: 14px;
+  }
+
+  .confirm-btn {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+
+    /* 🚀 [color]="warn" ของ Material ไม่ได้ใส่ attribute color="warn" ให้ตามที่คิด
+       แต่ใส่เป็น CSS class "mat-warn"/"mat-primary" แทน (เช็คจาก DOM จริงแล้ว) และสีที่ธีมนี้
+       ให้มาเองก็ไม่ใช่สีแดง ต้องบังคับสีเอง (ใช้ pattern เดียวกับปุ่มอื่นๆในโปรเจกต์) */
+    &.mat-warn {
+      background-color: $danger-color !important;
+      color: #ffffff !important;
+
+      &:hover {
+        background-color: #dc2626 !important;
+      }
+    }
+
+    &.mat-primary {
+      background-color: $accent-color !important;
+      color: #ffffff !important;
+
+      &:hover {
+        background-color: #4338ca !important;
+      }
+    }
+  }
+}

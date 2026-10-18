@@ -1,0 +1,153 @@
+/* =========================================
+   Dashboard Minimalist Styling
+========================================= */
+
+// Variables for consistent theming
+$text-dark: #111827;
+$text-muted: #6b7280;
+$border-color: #e5e7eb;
+$bg-surface: #ffffff;
+
+.page-header {
+  margin-bottom: 32px;
+
+  h1 {
+    margin: 0 0 8px;
+    font-size: 28px;
+    font-weight: 700;
+    color: $text-dark;
+    letter-spacing: -0.5px;
+  }
+
+  p {
+    margin: 0;
+    color: $text-muted;
+    font-size: 15px;
+  }
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: $bg-surface;
+  border-radius: 12px;
+  padding: 24px;
+  text-decoration: none;
+  border: 1px solid $border-color;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 10px 15px -3px rgba(0, 0, 0, 0.08),
+      0 4px 6px -2px rgba(0, 0, 0, 0.04);
+    border-color: #d1d5db;
+  }
+}
+
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  mat-icon {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Soft modern colors for minimal look */
+  &.pending {
+    background: #fff7ed;
+    color: #ea580c; // Subtle Orange
+  }
+
+  &.dorm {
+    background: #eff6ff;
+    color: #2563eb; // Subtle Blue
+  }
+
+  &.report {
+    background: #fef2f2;
+    color: #dc2626; // Subtle Red
+  }
+
+  &.admin {
+    background: #f3f4f6;
+    color: #4b5563; // Subtle Gray/Neutral
+  }
+}
+
+.stat-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: 600;
+  color: $text-dark;
+  line-height: 1.2;
+}
+
+.stat-label {
+  font-size: 13px;
+  color: $text-muted;
+  font-weight: 400;
+}
+
+.welcome-card {
+  border-radius: 12px !important;
+  border: 1px solid $border-color;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important; /* Overrides default Material shadow */
+  background: $bg-surface;
+
+  mat-card-content {
+    padding: 24px;
+  }
+
+  h2 {
+    margin: 0 0 8px;
+    font-size: 20px;
+    font-weight: 600;
+    color: $text-dark;
+  }
+
+  p {
+    color: $text-muted;
+    margin: 0 0 24px;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 8px; /* Makes Material buttons look a bit softer */
+
+    mat-icon {
+      margin-right: -4px; /* Adjust spacing inside standard mat-button */
+    }
+  }
+}

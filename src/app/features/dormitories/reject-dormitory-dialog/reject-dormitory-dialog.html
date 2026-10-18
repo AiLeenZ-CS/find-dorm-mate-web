@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>ปฏิเสธหอพัก: {{ data.dormName }}</h2>
+
+<mat-dialog-content>
+  <p class="hint">ระบุเหตุผลที่ปฏิเสธ (เจ้าของหอพักจะเห็นข้อความนี้)</p>
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>หมายเหตุจากแอดมิน</mat-label>
+    <textarea matInput rows="4" [(ngModel)]="adminNote" name="adminNote"></textarea>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">ยกเลิก</button>
+  <button mat-flat-button color="warn" [disabled]="!adminNote.trim()" (click)="confirm()">
+    ยืนยันการปฏิเสธ
+  </button>
+</mat-dialog-actions>

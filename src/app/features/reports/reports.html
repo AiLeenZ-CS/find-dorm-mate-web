@@ -1,0 +1,92 @@
+<div class="page-header">
+  <div>
+    <h1>รายงานผู้ใช้</h1>
+    <p>ตรวจสอบรายงานปัญหาที่ผู้ใช้แจ้งเข้ามาในระบบ</p>
+  </div>
+  <button mat-stroked-button (click)="refresh()">
+    <mat-icon>refresh</mat-icon>
+    รีเฟรช
+  </button>
+</div>
+
+<div class="filter-bar">
+  <mat-form-field appearance="outline" class="filter-field">
+    <mat-label>สถานะ</mat-label>
+    <mat-select [(ngModel)]="status" (selectionChange)="refresh()">
+      <mat-option value="All">ทั้งหมด</mat-option>
+      <mat-option value="Pending">รอดำเนินการ</mat-option>
+      <mat-option value="Resolved">ดำเนินการแล้ว</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+@if (loading()) {
+  <div class="state-box">
+    <mat-progress-spinner diameter="36" mode="indeterminate" />
+    <span>กำลังโหลดข้อมูล...</span>
+  </div>
+} @else if (reports().length === 0) {
+  <div class="state-box empty">
+    <mat-icon>shield</mat-icon>
+    <span>ไม่พบรายงานที่ตรงกับเงื่อนไข</span>
+  </div>
+} @else {
+  <div class="table-card">
+    <table mat-table [dataSource]="sortedReports()" matSort (matSortChange)="onSortChange($event)">
+      <ng-container matColumnDef="reporter">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ผู้รายงาน</th>
+        <td mat-cell *matCellDef="let report">
+          {{ report.Reporter?.Username || 'ไม่พบข้อมูล' }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="reportedUser">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ผู้ถูกรายงาน</th>
+        <td mat-cell *matCellDef="let report">
+          {{ report.Reported_User?.Username || 'ไม่พบข้อมูล' }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="reason">
+        <th mat-header-cell *matHeaderCellDef>เหตุผล</th>
+        <td mat-cell *matCellDef="let report">
+          <span class="reason-text">{{ report.Reason || '-' }}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>สถานะ</th>
+        <td mat-cell *matCellDef="let report">
+          <app-status-badge
+            [label]="report.Status === 'Resolved' ? 'ดำเนินการแล้ว' : 'รอดำเนินการ'"
+            [variant]="report.Status === 'Resolved' ? 'success' : 'warning'"
+            [icon]="report.Status === 'Resolved' ? 'check_circle' : 'hourglass_top'"
+          />
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="reportedAt">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>วันที่รายงาน</th>
+        <td mat-cell *matCellDef="let report">{{ report.Reported_At | date: 'd MMM y' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let report">
+          <button mat-stroked-button (click)="viewDetail(report)">
+            <mat-icon>visibility</mat-icon>
+            ดูรายละเอียด
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: columns"
+        class="clickable-row"
+        (click)="viewDetail(row)"
+      ></tr>
+    </table>
+  </div>
+}

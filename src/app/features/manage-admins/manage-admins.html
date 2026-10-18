@@ -1,0 +1,89 @@
+<div class="page-header">
+  <div>
+    <h1>จัดการบัญชี Admin</h1>
+    <p>เฉพาะ Master Admin เท่านั้นที่สามารถเพิ่ม/ระงับบัญชี Admin ได้</p>
+  </div>
+  <button mat-flat-button color="primary" (click)="openCreateDialog()">
+    <mat-icon>person_add</mat-icon>
+    เพิ่ม Admin
+  </button>
+</div>
+
+@if (loading()) {
+  <div class="state-box">
+    <mat-progress-spinner diameter="36" mode="indeterminate" />
+    <span>กำลังโหลดข้อมูล...</span>
+  </div>
+} @else {
+  <div class="table-card">
+    <table mat-table [dataSource]="sortedAdmins()" matSort (matSortChange)="onSortChange($event)">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ชื่อ</th>
+        <td mat-cell *matCellDef="let admin">
+          <div class="name-cell">
+            <app-auth-image
+              class="avatar"
+              [src]="admin.Profile_Image"
+              [fallback]="'https://api.dicebear.com/7.x/initials/svg?seed=' + admin.Username"
+              [alt]="admin.Username"
+            />
+            <div>
+              <div class="name">{{ fullName(admin) }}</div>
+              <div class="username">&#64;{{ admin.Username }}</div>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>อีเมล</th>
+        <td mat-cell *matCellDef="let admin">{{ admin.Email }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>สิทธิ์</th>
+        <td mat-cell *matCellDef="let admin">
+          <app-status-badge
+            [label]="admin.User_Role === 'Master_Admin' ? 'Master Admin' : 'Admin'"
+            [variant]="admin.User_Role === 'Master_Admin' ? 'info' : 'neutral'"
+            icon="verified_user"
+          />
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>สถานะ</th>
+        <td mat-cell *matCellDef="let admin">
+          <app-status-badge
+            [label]="admin.Account_Status === 'Suspended' ? 'ถูกระงับ' : 'ใช้งานได้'"
+            [variant]="admin.Account_Status === 'Suspended' ? 'danger' : 'success'"
+            [icon]="admin.Account_Status === 'Suspended' ? 'block' : 'check_circle'"
+          />
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>สร้างเมื่อ</th>
+        <td mat-cell *matCellDef="let admin">{{ admin.Created_At | date: 'd MMM y' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let admin">
+          <button mat-stroked-button (click)="viewDetail(admin)">
+            <mat-icon>visibility</mat-icon>
+            ดูรายละเอียด
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: columns"
+        class="clickable-row"
+        (click)="viewDetail(row)"
+      ></tr>
+    </table>
+  </div>
+}

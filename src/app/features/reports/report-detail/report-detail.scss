@@ -1,0 +1,210 @@
+/* =========================================
+   Report Details - Minimalist SaaS Theme
+========================================= */
+
+// Variables
+$text-dark: #111827;
+$text-normal: #374151;
+$text-muted: #6b7280;
+$border-color: #e5e7eb;
+$bg-surface: #ffffff;
+$accent-color: #4f46e5; // Indigo
+
+$max-content-width: 720px; /* ความกว้างกำลังดีสำหรับหน้ารายละเอียดแนวตั้ง */
+
+*:not(mat-icon) {
+  font-family: 'Prompt', sans-serif;
+}
+
+/* --- Main Container --- */
+.page-container {
+  max-width: $max-content-width;
+  margin: 0 auto; /* จัดเนื้อหาให้อยู่กึ่งกลางหน้าจอ */
+  width: 100%;
+}
+
+/* --- Page Header --- */
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+
+  h1 {
+    margin: 0 0 4px;
+    font-size: 24px;
+    font-weight: 600;
+    color: $text-dark;
+    letter-spacing: -0.3px;
+  }
+
+  p {
+    margin: 0;
+    color: $text-muted;
+    font-size: 14px;
+  }
+}
+
+.back-btn {
+  background: $bg-surface !important;
+  border: 1px solid $border-color !important;
+  color: $text-normal !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+  transition: all 0.2s ease !important;
+
+  &:hover {
+    background: #f1f5f9 !important;
+    border-color: #d1d5db !important;
+    color: $text-dark !important;
+  }
+}
+
+/* --- Loading State --- */
+.state-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 80px 0;
+  color: $text-muted;
+  background: $bg-surface;
+  border-radius: 12px;
+  border: 1px dashed $border-color;
+}
+
+/* --- Report Card --- */
+.report-card {
+  border-radius: 12px !important;
+  padding: 32px !important;
+  background: $bg-surface;
+  border: 1px solid $border-color;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.report-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f1f5f9;
+
+  h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: $text-dark;
+  }
+}
+
+
+/* --- Report Content Rows --- */
+.report-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+
+  mat-icon {
+    color: #94a3b8; /* สีเทาอมฟ้า ให้ดูซอฟต์ ไม่แย่งซีนข้อมูลหลัก */
+    margin-top: 2px;
+    font-size: 22px;
+    width: 22px;
+    height: 22px;
+  }
+}
+
+.label {
+  font-size: 13px;
+  color: $text-muted;
+  margin-bottom: 4px;
+}
+
+.value {
+  font-size: 15px;
+  color: $text-dark;
+  font-weight: 400;
+  line-height: 1.5;
+
+  &.highlight {
+    font-weight: 500;
+    color: #b91c1c; /* เน้นเหตุผลการรายงานด้วยสีแดงเข้มเล็กน้อย */
+  }
+
+  .user-name,
+  .dorm-name {
+    font-weight: 500;
+  }
+
+  .user-link {
+    color: $accent-color;
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .user-email,
+  .room-type {
+    color: $text-muted;
+    font-size: 14px;
+  }
+
+  .text-muted {
+    color: $text-muted;
+    font-style: italic;
+  }
+}
+
+/* --- Actions --- */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 160px;
+    height: 40px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+
+    /* ปิดเรื่อง (Primary) */
+    &.mat-primary {
+      background-color: #5a52e5 !important;
+      color: #ffffff !important;
+      border: none !important;
+
+      &:hover:not([disabled]) {
+        background-color: #4338ca !important;
+      }
+    }
+
+    /* เปิดเรื่องใหม่ (Warn) */
+    &.mat-warn {
+      background-color: #ef4444 !important;
+      color: #ffffff !important;
+      border: none !important;
+      box-shadow: 0 1px 2px rgba(239, 68, 68, 0.2);
+
+      &:hover:not([disabled]) {
+        background-color: #dc2626 !important;
+      }
+    }
+  }
+}

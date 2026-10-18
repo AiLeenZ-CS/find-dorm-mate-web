@@ -1,0 +1,68 @@
+<div class="login-page">
+  <div class="login-card">
+    <div class="brand">
+      <div class="brand-badge">
+        <mat-icon>apartment</mat-icon>
+      </div>
+      <h1>Find a Dorm Mate</h1>
+      <p>ระบบจัดการสำหรับแอดมิน</p>
+    </div>
+
+    <form class="login-form" (ngSubmit)="submit()" #loginForm="ngForm">
+      <mat-form-field appearance="outline">
+        <mat-label>อีเมล</mat-label>
+        <input
+          matInput
+          type="email"
+          name="email"
+          [(ngModel)]="email"
+          required
+          autocomplete="username"
+        />
+        <mat-icon matSuffix>mail_outline</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>รหัสผ่าน</mat-label>
+        <input
+          matInput
+          [type]="hidePassword() ? 'password' : 'text'"
+          name="password"
+          [(ngModel)]="password"
+          required
+          autocomplete="current-password"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="hidePassword.set(!hidePassword())"
+          [attr.aria-label]="'แสดง/ซ่อนรหัสผ่าน'"
+        >
+          <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      @if (errorMessage()) {
+        <div class="error-banner">
+          <mat-icon>error_outline</mat-icon>
+          <span>{{ errorMessage() }}</span>
+        </div>
+      }
+
+      <button
+        mat-flat-button
+        color="primary"
+        class="submit-btn"
+        type="submit"
+        [disabled]="!loginForm.form.valid || loading()"
+      >
+        @if (loading()) {
+          <mat-progress-spinner diameter="20" mode="indeterminate" />
+        } @else {
+          <span>เข้าสู่ระบบ</span>
+        }
+      </button>
+    </form>
+  </div>
+</div>

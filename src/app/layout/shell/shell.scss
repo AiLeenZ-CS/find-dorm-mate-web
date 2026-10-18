@@ -1,0 +1,229 @@
+/* =========================================
+   Admin Shell Minimalist Styling (SaaS Style)
+========================================= */
+// Variables
+$sidebar-bg: #0f172a; // Deep Slate
+$sidebar-text: #94a3b8; /* สีเทาสว่าง สำหรับตัวหนังสือปกติ */
+$sidebar-text-hover: #f8fafc; /* สีขาวสว่าง สำหรับตอนเอาเมาส์ชี้ */
+$sidebar-active-bg: #1e293b;
+$accent-color: #6366f1; // Modern Indigo
+
+$topbar-border: #e5e7eb;
+$content-bg: #f9fafb;
+$text-dark: #111827; // ปรับให้เข้มขึ้นเพื่อให้อ่านบนแถบสีขาวได้ชัดเจน
+
+/* บังคับใช้ฟอนต์ Prompt */
+*:not(mat-icon) {
+  font-family: 'Prompt', sans-serif;
+}
+
+.shell {
+  height: 100vh;
+}
+
+/* --- Sidebar --- */
+.sidenav {
+  width: 270px;
+  border-right: none;
+  background: $sidebar-bg;
+  color: $sidebar-text;
+  display: flex;
+  flex-direction: column;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 32px 24px 24px;
+}
+
+.brand-badge {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
+
+  mat-icon {
+    font-size: 22px;
+    width: 22px;
+    height: 22px;
+  }
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.4;
+
+  strong {
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: -0.3px;
+  }
+
+  span {
+    font-size: 12px;
+    color: $sidebar-text;
+    font-weight: 400;
+  }
+}
+
+.nav-list {
+  padding: 8px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  a {
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    height: 48px;
+
+    mat-icon {
+      color: $sidebar-text !important;
+      margin-right: 8px;
+      transition: all 0.2s ease;
+    }
+
+    span[matListItemTitle],
+    .mdc-list-item__primary-text {
+      color: $sidebar-text !important;
+      font-size: 15px !important;
+      font-weight: 400 !important;
+      letter-spacing: 0.3px;
+      transition: color 0.2s ease;
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.04);
+
+      mat-icon {
+        color: $sidebar-text-hover !important;
+      }
+
+      span[matListItemTitle],
+      .mdc-list-item__primary-text {
+        color: $sidebar-text-hover !important;
+      }
+    }
+
+    &.active-link {
+      background: $sidebar-active-bg;
+
+      mat-icon {
+        color: $accent-color !important;
+      }
+
+      span[matListItemTitle],
+      .mdc-list-item__primary-text {
+        color: #ffffff !important;
+        font-weight: 500 !important;
+      }
+    }
+  }
+}
+
+/* --- Topbar --- */
+.topbar {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid $topbar-border;
+  height: 64px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+/* ส่วนของโปรไฟล์ที่ถูกแยกปุ่มออกแล้ว — กดไปหน้าโปรไฟล์ได้ */
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 16px;
+  border-right: 1px solid #e5e7eb; /* เพิ่มเส้นคั่นระหว่างโปรไฟล์กับปุ่มออก */
+  margin-right: 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background-color: #f3f4f6;
+  }
+
+  .avatar-icon {
+    display: block;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    flex-shrink: 0;
+  }
+}
+
+.user-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: $text-dark;
+}
+
+.user-role {
+  font-size: 11px;
+  background: #eef2ff;
+  color: #4f46e5;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+/* --- Logout Button --- */
+.logout-btn {
+  border-radius: 8px !important;
+  height: 38px;
+  padding: 0 16px !important;
+  color: #dc2626 !important; /* สีแดงเข้ม */
+  border-color: #fca5a5 !important; /* เส้นขอบแดงอ่อน */
+  background: #fef2f2 !important; /* พื้นหลังแดงพาสเทล */
+  font-weight: 500 !important;
+  font-size: 14px;
+  transition: all 0.2s ease;
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    color: #ef4444 !important;
+    margin-right: 6px;
+  }
+
+  &:hover {
+    background: #fee2e2 !important;
+    border-color: #ef4444 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(239, 68, 68, 0.1);
+  }
+}
+
+/* --- Content Area --- */
+.content {
+  padding: 32px;
+  min-height: calc(100vh - 64px);
+  background: $content-bg;
+  box-sizing: border-box;
+}

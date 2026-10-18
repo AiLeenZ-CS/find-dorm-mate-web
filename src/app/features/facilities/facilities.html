@@ -1,0 +1,107 @@
+<div class="page-header">
+  <div>
+    <h1>สิ่งอำนวยความสะดวก</h1>
+    <p>รายการกลางที่เจ้าของหอพักเลือกใช้ตอนลงข้อมูลหอพักและห้องพัก</p>
+  </div>
+</div>
+
+@if (loading()) {
+  <div class="state-box">
+    <mat-progress-spinner diameter="36" mode="indeterminate" />
+    <span>กำลังโหลดข้อมูล...</span>
+  </div>
+} @else {
+  <div class="facility-grid">
+    <!-- --- สิ่งอำนวยความสะดวกของหอพัก --- -->
+    <div class="facility-card">
+      <div class="card-head">
+        <mat-icon>apartment</mat-icon>
+        <h2>สิ่งอำนวยความสะดวกหอพัก</h2>
+      </div>
+
+      <form class="add-row" (ngSubmit)="add('Dormitory')" #dormForm="ngForm">
+        <mat-form-field appearance="outline">
+          <mat-label>ชื่อสิ่งอำนวยความสะดวก</mat-label>
+          <input matInput name="dormName" [(ngModel)]="newDormName" placeholder="เช่น ที่จอดรถ" />
+        </mat-form-field>
+        <button
+          mat-flat-button
+          color="primary"
+          type="submit"
+          [disabled]="!newDormName.trim() || savingDorm()"
+        >
+          @if (savingDorm()) {
+            <mat-progress-spinner diameter="18" mode="indeterminate" />
+          } @else {
+            <span><mat-icon>add</mat-icon> เพิ่ม</span>
+          }
+        </button>
+      </form>
+
+      <div class="chip-list">
+        @for (f of dormFacilities(); track f.Facility_ID) {
+          <span class="facility-chip">
+            {{ f.Facility_Name }}
+            <button
+              type="button"
+              class="remove-btn"
+              (click)="remove(f)"
+              aria-label="ลบ"
+              title="ลบ"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+          </span>
+        } @empty {
+          <p class="empty-hint">ยังไม่มีข้อมูลสิ่งอำนวยความสะดวกของหอพัก</p>
+        }
+      </div>
+    </div>
+
+    <!-- --- สิ่งอำนวยความสะดวกของห้องพัก --- -->
+    <div class="facility-card">
+      <div class="card-head">
+        <mat-icon>bed</mat-icon>
+        <h2>สิ่งอำนวยความสะดวกห้องพัก</h2>
+      </div>
+
+      <form class="add-row" (ngSubmit)="add('Room')" #roomForm="ngForm">
+        <mat-form-field appearance="outline">
+          <mat-label>ชื่อสิ่งอำนวยความสะดวก</mat-label>
+          <input matInput name="roomName" [(ngModel)]="newRoomName" placeholder="เช่น เครื่องปรับอากาศ" />
+        </mat-form-field>
+        <button
+          mat-flat-button
+          color="primary"
+          type="submit"
+          [disabled]="!newRoomName.trim() || savingRoom()"
+        >
+          @if (savingRoom()) {
+            <mat-progress-spinner diameter="18" mode="indeterminate" />
+          } @else {
+            <span><mat-icon>add</mat-icon> เพิ่ม</span>
+          }
+        </button>
+      </form>
+
+      <div class="chip-list">
+        @for (f of roomFacilities(); track f.Facility_ID) {
+          <span class="facility-chip">
+            {{ f.Facility_Name }}
+            <button
+              type="button"
+              class="remove-btn"
+              (click)="remove(f)"
+              aria-label="ลบ"
+              title="ลบ"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+          </span>
+        } @empty {
+          <p class="empty-hint">ยังไม่มีข้อมูลสิ่งอำนวยความสะดวกของห้องพัก</p>
+        }
+      </div>
+    </div>
+  </div>
+}

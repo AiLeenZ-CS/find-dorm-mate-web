@@ -1,0 +1,496 @@
+/* =========================================
+   Dormitory Details - Minimalist SaaS Theme
+========================================= */
+
+// Variables
+$text-dark: #111827;
+$text-normal: #374151;
+$text-muted: #6b7280;
+$border-color: #e5e7eb;
+$bg-surface: #ffffff;
+$accent-color: #4f46e5; // Indigo
+
+$max-content-width: 1140px;
+
+*:not(mat-icon) {
+  font-family: 'Prompt', sans-serif;
+}
+
+/* --- Main Container --- */
+.page-container {
+  max-width: $max-content-width;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* --- Page Header --- */
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+
+  h1 {
+    margin: 0 0 4px;
+    font-size: 24px;
+    font-weight: 600;
+    color: $text-dark;
+    letter-spacing: -0.3px;
+  }
+
+  p {
+    margin: 0;
+    color: $text-muted;
+    font-size: 14px;
+  }
+}
+
+.back-btn {
+  background: $bg-surface !important;
+  border: 1px solid $border-color !important;
+  color: $text-normal !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+  transition: all 0.2s ease !important;
+
+  &:hover {
+    background: #f1f5f9 !important;
+    border-color: #d1d5db !important;
+    color: $text-dark !important;
+  }
+}
+
+/* --- Loading State --- */
+.state-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 80px 0;
+  color: $text-muted;
+  background: $bg-surface;
+  border-radius: 12px;
+  border: 1px dashed $border-color;
+}
+
+/* --- Grid Layout --- */
+.detail-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  align-items: start;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.main-column,
+.side-column {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* --- Cards Shared Styles --- */
+.gallery-card,
+.info-card,
+.room-types-card,
+.owner-card,
+.facilities-card {
+  border-radius: 12px !important;
+  background: $bg-surface;
+  border: 1px solid $border-color;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* --- Gallery Section --- */
+.gallery-card {
+  padding: 0 !important;
+  overflow: hidden;
+}
+
+.main-image {
+  position: relative;
+  height: 400px;
+  background: #f8fafc;
+  border-bottom: 1px solid $border-color;
+
+  app-auth-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  &.placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    mat-icon {
+      font-size: 64px;
+      width: 64px;
+      height: 64px;
+      color: #cbd5e1;
+    }
+  }
+
+  /* ตำแหน่ง Status Badge บนรูปภาพ */
+  .image-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+  }
+}
+
+.thumb-row {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  overflow-x: auto;
+  background: #ffffff;
+
+  app-auth-image {
+    width: 72px;
+    height: 72px;
+    border-radius: 8px;
+    cursor: pointer;
+    opacity: 0.5;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+
+    &.active {
+      opacity: 1;
+      border-color: $accent-color;
+    }
+
+    &:hover:not(.active) {
+      opacity: 0.8;
+    }
+  }
+}
+
+/* =========================================
+   อัปเดตสไตล์ Chips ตามภาพต้นแบบ
+   (พื้นหลังสีทึบ, ไม่มีเส้นขอบ, ตัวหนังสือสีขาวล้วน)
+========================================= */
+
+mat-chip {
+  font-family: 'Prompt', sans-serif !important;
+  border-radius: 6px !important;
+
+  /* ลบเส้นขอบทุกรูปแบบให้แบนเรียบ */
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  --mdc-chip-outline-width: 0px !important;
+  --mdc-chip-outline-color: transparent !important;
+
+  /* บังคับตัวหนังสือให้เป็นสีขาวล้วนเสมอ */
+  --mdc-chip-label-text-color: #ffffff !important;
+
+  ::ng-deep {
+    .mdc-evolution-chip__action {
+      border: none !important;
+      outline: none !important;
+    }
+
+    span,
+    .mdc-evolution-chip__text-label,
+    .mat-mdc-chip-action-label {
+      color: #ffffff !important;
+      font-weight: 500 !important;
+      letter-spacing: 0.3px !important;
+    }
+  }
+}
+
+/* สิ่งอำนวยความสะดวก (Facilities) — ยังเป็น mat-chip อยู่ (แท็กรายการ ไม่ใช่ป้ายสถานะ) */
+.facility-chip {
+  font-size: 13px !important;
+  background: #475569 !important; /* สีเทาเข้มทึบ */
+}
+
+/* ========================================= */
+
+/* --- Info Card --- */
+.info-card {
+  padding: 32px !important;
+
+  h2 {
+    margin: 0 0 6px;
+    font-size: 22px;
+    font-weight: 600;
+    color: $text-dark;
+  }
+
+  .address {
+    margin: 0 0 24px;
+    color: $text-muted;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px 24px;
+  padding: 24px 0;
+  border-top: 1px solid #f1f5f9;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  .label {
+    font-size: 13px;
+    color: $text-muted;
+    font-weight: 400;
+  }
+
+  .value {
+    font-size: 14px;
+    color: $text-dark;
+    font-weight: 500;
+  }
+}
+
+.note-box {
+  display: flex;
+  gap: 12px;
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 24px;
+
+  mat-icon {
+    flex-shrink: 0;
+    color: #ef4444;
+  }
+
+  .note-title {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  .note-text {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+}
+
+.ownership-proof {
+  margin-top: 24px;
+
+  h3 {
+    margin: 0 0 12px;
+    font-size: 15px;
+    font-weight: 600;
+    color: $text-dark;
+  }
+
+  .ownership-proof-preview {
+    width: 100%;
+    max-width: 320px;
+    height: 220px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid $border-color;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+
+    app-auth-image {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}
+
+/* --- Action Buttons (ปรับให้สีทึบ) --- */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 32px;
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 140px;
+    height: 40px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+
+    /* ปุ่มปฏิเสธ */
+    &.mat-warn {
+      background-color: #ef4444 !important;
+      color: #ffffff !important;
+      border: none !important;
+      box-shadow: 0 1px 2px rgba(239, 68, 68, 0.2);
+
+      &:hover:not([disabled]) {
+        background-color: #dc2626 !important;
+      }
+    }
+  }
+
+  /* ปุ่มอนุมัติ */
+  .approve-btn {
+    background-color: #5a52e5 !important;
+    color: #ffffff !important;
+    border: none !important;
+    box-shadow: 0 1px 2px rgba(90, 82, 229, 0.2);
+
+    &:hover:not([disabled]) {
+      background-color: #4338ca !important;
+    }
+  }
+}
+
+/* --- Room Types & Owner & Facilities --- */
+.room-types-card,
+.owner-card,
+.facilities-card {
+  padding: 24px !important;
+
+  h3 {
+    margin: 0 0 16px;
+    font-size: 16px;
+    font-weight: 600;
+    color: $text-dark;
+  }
+}
+
+.room-type-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.room-type-row {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: #f8fafc;
+  border: 1px solid #f1f5f9;
+  border-radius: 10px;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: #f1f5f9;
+  }
+
+  .room-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: $text-dark;
+  }
+
+  .room-sub {
+    font-size: 13px;
+    color: $text-muted;
+  }
+
+  .room-price {
+    font-size: 14px;
+    color: #15803d;
+    font-weight: 600;
+  }
+
+  .room-rooms {
+    font-size: 13px;
+    color: $text-normal;
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}
+
+/* --- Owner Section --- */
+.owner-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+
+  .avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #eef2ff;
+    color: $accent-color;
+    font-weight: 600;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #c7d2fe;
+  }
+
+  .owner-name {
+    font-weight: 600;
+    color: $text-dark;
+    font-size: 14px;
+  }
+
+  .owner-email {
+    font-size: 13px;
+    color: $text-muted;
+  }
+}
+
+.owner-phone {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: $text-normal;
+  margin-bottom: 20px;
+  background: #f8fafc;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #f1f5f9;
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    color: #94a3b8;
+  }
+}
+
+.view-owner-btn {
+  width: 100%;
+  height: 40px;
+  border-radius: 8px !important;
+  border-color: #d1d5db !important;
+  color: $text-normal !important;
+  font-weight: 500 !important;
+}
+
+/* --- Facilities --- */
+.facility-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}

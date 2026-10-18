@@ -1,0 +1,61 @@
+<div class="dialog-header">
+  <div class="icon-badge">
+    <mat-icon>admin_panel_settings</mat-icon>
+  </div>
+  <div>
+    <h2 mat-dialog-title>เพิ่ม Admin ใหม่</h2>
+    <p class="subtitle">สร้างบัญชี Admin สำหรับเข้าดูแลระบบเพิ่มเติม</p>
+  </div>
+</div>
+
+<form (ngSubmit)="submit()" #adminForm="ngForm">
+  <mat-dialog-content class="form-grid">
+    <mat-form-field appearance="outline">
+      <mat-label>ชื่อผู้ใช้</mat-label>
+      <input matInput name="username" [(ngModel)]="form.username" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>อีเมล</mat-label>
+      <input matInput type="email" name="email" [(ngModel)]="form.email" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>รหัสผ่านชั่วคราว</mat-label>
+      <input matInput type="password" name="password" [(ngModel)]="form.password" required minlength="6" />
+    </mat-form-field>
+
+    <div class="name-row">
+      <mat-form-field appearance="outline">
+        <mat-label>ชื่อจริง</mat-label>
+        <input matInput name="firstName" [(ngModel)]="form.firstName" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>นามสกุล</mat-label>
+        <input matInput name="lastName" [(ngModel)]="form.lastName" />
+      </mat-form-field>
+    </div>
+
+    @if (errorMessage()) {
+      <div class="error-banner">
+        <mat-icon>error_outline</mat-icon>
+        <span>{{ errorMessage() }}</span>
+      </div>
+    }
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="cancel()">ยกเลิก</button>
+    <button mat-flat-button class="submit-btn" type="submit" [disabled]="!adminForm.form.valid || saving()">
+      @if (saving()) {
+        <mat-progress-spinner diameter="18" mode="indeterminate" />
+      } @else {
+        <span>
+          <mat-icon>person_add</mat-icon>
+          เพิ่ม Admin
+        </span>
+      }
+    </button>
+  </mat-dialog-actions>
+</form>

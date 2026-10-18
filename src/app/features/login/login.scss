@@ -1,0 +1,95 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: radial-gradient(circle at top left, #ede7f6, #f5f3ff 45%, #e0f7fa 100%);
+}
+
+.login-card {
+  width: 100%;
+  max-width: 380px;
+  background: white;
+  border-radius: 20px;
+  padding: 40px 32px;
+  box-shadow: 0 20px 60px rgba(103, 58, 183, 0.15);
+}
+
+.brand {
+  text-align: center;
+  margin-bottom: 32px;
+
+  h1 {
+    margin: 12px 0 4px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #4527a0;
+  }
+
+  p {
+    margin: 0;
+    color: #757575;
+    font-size: 14px;
+  }
+}
+
+.brand-badge {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #7e57c2, #4527a0);
+  color: white;
+
+  mat-icon {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+.error-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fdecea;
+  color: #c62828;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  margin-bottom: 12px;
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.submit-btn {
+  height: 48px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

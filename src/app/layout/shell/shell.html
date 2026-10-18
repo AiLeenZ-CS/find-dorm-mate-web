@@ -1,0 +1,77 @@
+<mat-sidenav-container class="shell">
+  <mat-sidenav mode="side" opened class="sidenav">
+    <div class="brand">
+      <div class="brand-badge">
+        <mat-icon>apartment</mat-icon>
+      </div>
+      <div class="brand-text">
+        <strong>Find a Dorm Mate</strong>
+        <span>Admin Panel</span>
+      </div>
+    </div>
+
+    <mat-nav-list class="nav-list">
+      <a mat-list-item routerLink="/dashboard" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>dashboard</mat-icon>
+        <span matListItemTitle>ภาพรวม</span>
+      </a>
+      <a mat-list-item routerLink="/members" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>group</mat-icon>
+        <span matListItemTitle>สมาชิกทั้งหมด</span>
+      </a>
+      <a mat-list-item routerLink="/owners" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>fact_check</mat-icon>
+        <span matListItemTitle>เจ้าของหอพักทั้งหมด</span>
+      </a>
+      <a mat-list-item routerLink="/dormitories" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>apartment</mat-icon>
+        <span matListItemTitle>หอพักทั้งหมด</span>
+      </a>
+      <a mat-list-item routerLink="/reports" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>shield</mat-icon>
+        <span matListItemTitle>รายงานผู้ใช้</span>
+      </a>
+      <a mat-list-item routerLink="/facilities" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>meeting_room</mat-icon>
+        <span matListItemTitle>สิ่งอำนวยความสะดวก</span>
+      </a>
+      @if (auth.isMasterAdmin()) {
+      <a mat-list-item routerLink="/manage-admins" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>admin_panel_settings</mat-icon>
+        <span matListItemTitle>จัดการ Admin</span>
+      </a>
+      }
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar class="topbar">
+      <!-- ตัวผลักให้เนื้อหาด้านล่างไปอยู่ชิดขวา -->
+      <span class="spacer"></span>
+
+      <!-- ส่วนแสดงข้อมูลโปรไฟล์ผู้ใช้ — กดเพื่อไปหน้าโปรไฟล์ของตัวเอง -->
+      <a routerLink="/profile" class="user-profile" title="โปรไฟล์ของฉัน">
+        <app-auth-image
+          class="avatar-icon"
+          [src]="auth.profileImage()"
+          [fallback]="'https://api.dicebear.com/7.x/initials/svg?seed=' + auth.currentUser()?.username"
+          [alt]="auth.currentUser()?.username ?? ''"
+        />
+        <span class="user-name">{{ auth.currentUser()?.username }}</span>
+        <span class="user-role">{{
+          auth.currentUser()?.role === 'Master_Admin' ? 'Master Admin' : 'Admin'
+          }}</span>
+      </a>
+
+      <!-- ปุ่มออกจากระบบ (แยกออกมาวางต่างหาก) -->
+      <button mat-stroked-button class="logout-btn" (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        ออกจากระบบ
+      </button>
+    </mat-toolbar>
+
+    <main class="content">
+      <router-outlet />
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

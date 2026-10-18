@@ -1,0 +1,273 @@
+/* =========================================
+   Dormitories Management - Minimalist SaaS Theme
+========================================= */
+
+// Variables for consistent theming
+$text-dark: #111827;
+$text-normal: #374151;
+$text-muted: #6b7280;
+$border-color: #e5e7eb;
+$bg-surface: #ffffff;
+$accent-color: #6366f1; // Indigo
+
+/* บังคับใช้ฟอนต์ Prompt และยกเว้น mat-icon ไว้กันบัค */
+*:not(mat-icon) {
+  font-family: 'Prompt', sans-serif;
+}
+
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 24px;
+
+  h1 {
+    margin: 0 0 4px;
+    font-size: 24px;
+    font-weight: 600;
+    color: $text-dark;
+    letter-spacing: -0.3px;
+  }
+
+  p {
+    margin: 0;
+    color: $text-muted;
+    font-size: 14px;
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 8px;
+    height: 40px;
+    border-color: #d1d5db;
+    color: $text-normal;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: #f3f4f6;
+      border-color: $text-muted;
+    }
+
+    mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+.filter-bar {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  align-items: center;
+
+  .search-field {
+    flex: 1;
+    min-width: 280px;
+  }
+
+  .filter-field {
+    width: 220px;
+  }
+
+  mat-form-field {
+    border-radius: 8px;
+  }
+}
+
+/* --- Empty / Loading States --- */
+.state-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 80px 0;
+  color: $text-muted;
+  background: $bg-surface;
+  border-radius: 12px;
+  border: 1px dashed $border-color;
+
+  span {
+    font-size: 15px;
+    font-weight: 400;
+  }
+
+  &.empty mat-icon {
+    font-size: 56px;
+    width: 56px;
+    height: 56px;
+    color: #cbd5e1;
+  }
+}
+
+/* --- Dorm Cards Grid --- */
+.dorm-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.dorm-card {
+  border-radius: 16px !important;
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: $bg-surface;
+  border: 1px solid $border-color;
+  box-shadow: 0 2px 8px rgba(17, 24, 39, 0.05) !important;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    border-color: $accent-color;
+    box-shadow:
+      0 12px 20px -4px rgba(99, 102, 241, 0.15),
+      0 4px 8px -2px rgba(0, 0, 0, 0.04) !important;
+  }
+}
+
+/* --- Dorm Image Section --- */
+.dorm-image {
+  position: relative;
+  height: 180px; /* เพิ่มความสูงให้เห็นรูปชัดขึ้น */
+  background: #f8fafc;
+  border-bottom: 1px solid $border-color;
+
+  app-auth-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .placeholder {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f5f9;
+
+    mat-icon {
+      font-size: 48px;
+      width: 48px;
+      height: 48px;
+      color: #cbd5e1;
+    }
+  }
+
+  /* ป้ายสถานะลอยทับรูปภาพ มุมขวาบน */
+  .image-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+  }
+}
+
+/* --- Dorm Info Section --- */
+.dorm-body {
+  padding: 20px 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dorm-name {
+  font-weight: 600;
+  font-size: 16px;
+  color: $text-dark;
+  line-height: 1.3;
+}
+
+.dorm-address {
+  font-size: 13px;
+  color: $text-muted;
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* บังคับให้ที่อยู่แสดงไม่เกิน 2 บรรทัด */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: $text-normal;
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    color: #94a3b8; /* สีไอคอนให้ซอฟต์ลง */
+  }
+
+  /* กล่องหมายเหตุ (เมื่อถูกปฏิเสธ) */
+  &.note {
+    color: #b91c1c;
+    background: #fef2f2;
+    padding: 8px 12px;
+    border-radius: 6px;
+    align-items: flex-start;
+    margin-top: 4px;
+
+    mat-icon {
+      color: #ef4444;
+      margin-top: 1px;
+    }
+  }
+}
+
+/* --- Dorm Actions (Buttons) --- */
+.dorm-actions {
+  display: flex;
+  gap: 12px;
+  padding: 0 20px 20px;
+  margin-top: auto; /* ดันปุ่มลงไปติดขอบล่างเสมอ */
+
+  button {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border-radius: 8px;
+    height: 40px;
+    font-size: 14px;
+    font-weight: 500;
+
+    /* ปุ่มปฏิเสธ (สีแดงทึบ) */
+    &.mat-warn {
+      background-color: #ef4444 !important;
+      color: #ffffff !important;
+      border: none !important;
+      box-shadow: 0 1px 2px rgba(239, 68, 68, 0.2);
+
+      &:hover:not([disabled]) {
+        background-color: #dc2626 !important;
+      }
+    }
+
+    /* ปุ่มอนุมัติ (สีน้ำเงินทึบ) */
+    &.mat-primary {
+      background-color: $accent-color !important;
+      color: #ffffff !important;
+      border: none !important;
+      box-shadow: 0 1px 2px rgba(99, 102, 241, 0.2);
+
+      &:hover:not([disabled]) {
+        background-color: #4338ca !important;
+      }
+    }
+  }
+}

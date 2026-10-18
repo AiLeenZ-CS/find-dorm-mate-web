@@ -1,0 +1,83 @@
+<!-- สร้าง Container คลุมทั้งหน้าเพื่อจัดกึ่งกลาง -->
+<div class="page-container">
+  <div class="page-header">
+    <a mat-icon-button routerLink="/members" class="back-btn">
+      <mat-icon>arrow_back</mat-icon>
+    </a>
+    <div>
+      <h1>รายละเอียดสมาชิก</h1>
+      <p>ข้อมูลทั้งหมดของบัญชีนี้</p>
+    </div>
+  </div>
+
+  @if (loading()) {
+  <div class="state-box">
+    <mat-progress-spinner diameter="36" mode="indeterminate" />
+    <span>กำลังโหลดข้อมูล...</span>
+  </div>
+  } @else if (member(); as m) {
+  <mat-card class="profile-card">
+    <div class="profile-header">
+      <app-auth-image class="avatar" [src]="m.Profile_Image"
+        [fallback]="'https://api.dicebear.com/7.x/initials/svg?seed=' + m.Username" [alt]="m.Username" />
+      <div class="profile-title">
+        <h2>{{ fullName(m) }}</h2>
+        <span class="username">&#64;{{ m.Username }}</span>
+      </div>
+      <app-status-badge
+        [label]="m.Account_Status === 'Suspended' ? 'ถูกระงับ' : 'ใช้งานได้'"
+        [variant]="m.Account_Status === 'Suspended' ? 'danger' : 'success'"
+        [icon]="m.Account_Status === 'Suspended' ? 'block' : 'check_circle'"
+      />
+    </div>
+
+    <div class="info-grid">
+      <div class="info-item">
+        <span class="label">อีเมล</span>
+        <span class="value">{{ m.Email }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">เบอร์โทรศัพท์</span>
+        <span class="value">{{ m.Phone || 'ไม่ระบุ' }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">ชื่อเล่น</span>
+        <span class="value">{{ m.Nickname || 'ไม่ระบุ' }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">เพศ</span>
+        <span class="value">{{ genderLabel(m.Gender) }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">วันเกิด</span>
+        <span class="value">
+          {{ m.Birthdate ? (m.Birthdate | date: 'd MMM y') : 'ไม่ระบุ' }}
+        </span>
+      </div>
+      <div class="info-item">
+        <span class="label">กรอกข้อมูลครบถ้วน</span>
+        <span class="value">{{ m.Is_Profile_Completed ? 'ครบแล้ว' : 'ยังไม่ครบ' }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">สมัครเมื่อ</span>
+        <span class="value">{{ m.Created_At | date: 'd MMM y, HH:mm' }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">แก้ไขล่าสุด</span>
+        <span class="value">{{ m.Updated_At | date: 'd MMM y, HH:mm' }}</span>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button mat-flat-button [color]="m.Account_Status === 'Active' ? 'warn' : 'primary'" [disabled]="processing()"
+        (click)="toggleStatus()">
+        @if (processing()) {
+        <mat-progress-spinner diameter="18" mode="indeterminate" />
+        } @else {
+        <span>{{ m.Account_Status === 'Active' ? 'ระงับบัญชีนี้' : 'เปิดใช้งานบัญชีนี้' }}</span>
+        }
+      </button>
+    </div>
+  </mat-card>
+  }
+</div>

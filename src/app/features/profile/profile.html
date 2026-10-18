@@ -1,0 +1,180 @@
+<div class="page-container">
+  <div class="page-header">
+    <div>
+      <h1>โปรไฟล์ของฉัน</h1>
+      <p>แก้ไขข้อมูลส่วนตัว รูปโปรไฟล์ และรหัสผ่านของบัญชีนี้</p>
+    </div>
+  </div>
+
+  @if (loading()) {
+    <div class="state-box">
+      <mat-progress-spinner diameter="36" mode="indeterminate" />
+      <span>กำลังโหลดข้อมูล...</span>
+    </div>
+  } @else if (profile(); as p) {
+    <mat-card class="profile-card">
+      <div class="profile-header">
+        <div class="avatar-wrap">
+          <app-auth-image
+            class="avatar"
+            [src]="p.Profile_Image"
+            [fallback]="'https://api.dicebear.com/7.x/initials/svg?seed=' + auth.currentUser()?.username"
+            [alt]="auth.currentUser()?.username ?? ''"
+          />
+          <label class="avatar-edit-btn" for="avatarInput">
+            @if (uploadingAvatar()) {
+              <mat-progress-spinner diameter="18" mode="indeterminate" />
+            } @else {
+              <mat-icon>photo_camera</mat-icon>
+            }
+          </label>
+          <input
+            id="avatarInput"
+            type="file"
+            accept="image/jpeg,image/png,image/webp"
+            [disabled]="uploadingAvatar()"
+            (change)="onAvatarSelected($event)"
+          />
+        </div>
+        <div class="profile-title">
+          <h2>{{ auth.currentUser()?.username }}</h2>
+          <span class="email">{{ p.Email }}</span>
+        </div>
+        <app-status-badge
+          [label]="roleLabel(p.User_Role)"
+          [variant]="p.User_Role === 'Master_Admin' ? 'info' : 'neutral'"
+          icon="verified_user"
+        />
+      </div>
+
+      <form (ngSubmit)="saveProfile()" #profileForm="ngForm" class="info-form">
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>ชื่อจริง</mat-label>
+            <input matInput name="firstName" [(ngModel)]="form.firstName" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>นามสกุล</mat-label>
+            <input matInput name="lastName" [(ngModel)]="form.lastName" />
+          </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="outline">
+          <mat-label>เบอร์โทรศัพท์</mat-label>
+          <input
+            matInput
+            name="phone"
+            [(ngModel)]="form.phone"
+            #phoneField="ngModel"
+            (input)="onPhoneInput($event)"
+            inputmode="numeric"
+            pattern="^0[0-9]{9}$"
+          />
+          @if (phoneField.invalid && (phoneField.dirty || phoneField.touched)) {
+            <mat-error>เบอร์โทรศัพท์ต้องมี 10 หลัก และขึ้นต้นด้วย 0</mat-error>
+          }
+        </mat-form-field>
+
+        <div class="actions">
+          <button
+            mat-flat-button
+            class="save-btn"
+            type="submit"
+            [disabled]="saving() || !profileForm.form.valid"
+          >
+            @if (saving()) {
+              <mat-progress-spinner diameter="18" mode="indeterminate" />
+            } @else {
+              <span>
+                <mat-icon>save</mat-icon>
+                บันทึกการเปลี่ยนแปลง
+              </span>
+            }
+          </button>
+        </div>
+      </form>
+    </mat-card>
+
+    <mat-card class="password-card">
+      <h3>เปลี่ยนรหัสผ่าน</h3>
+      <p class="hint">
+        ใส่รหัสผ่านเดิมเพื่อยืนยันตัวตนก่อนตั้งรหัสผ่านใหม่
+        หรือถ้าจำรหัสผ่านเดิมไม่ได้ ให้กด "ลืมรหัสผ่าน?" ด้านล่างแทน
+      </p>
+
+      <form (ngSubmit)="changePassword()" #passwordFormRef="ngForm" class="password-form">
+        <mat-form-field appearance="outline">
+          <mat-label>รหัสผ่านเดิม</mat-label>
+          <input
+            matInput
+            type="password"
+            name="oldPassword"
+            [(ngModel)]="passwordForm.oldPassword"
+            required
+            autocomplete="current-password"
+          />
+        </mat-form-field>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>รหัสผ่านใหม่</mat-label>
+            <input
+              matInput
+              type="password"
+              name="newPassword"
+              [(ngModel)]="passwordForm.newPassword"
+              required
+              minlength="6"
+              autocomplete="new-password"
+            />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>ยืนยันรหัสผ่านใหม่</mat-label>
+            <input
+              matInput
+              type="password"
+              name="confirmPassword"
+              [(ngModel)]="passwordForm.confirmPassword"
+              required
+              autocomplete="new-password"
+            />
+          </mat-form-field>
+        </div>
+
+        <div class="actions">
+          <button
+            type="button"
+            mat-button
+            class="forgot-link"
+            [disabled]="sendingResetEmail()"
+            (click)="sendResetEmail()"
+          >
+            @if (sendingResetEmail()) {
+              <mat-progress-spinner diameter="16" mode="indeterminate" />
+            } @else {
+              ลืมรหัสผ่าน?
+            }
+          </button>
+
+          <button
+            mat-flat-button
+            class="save-btn"
+            type="submit"
+            [disabled]="!passwordFormRef.form.valid || changingPassword()"
+          >
+            @if (changingPassword()) {
+              <mat-progress-spinner diameter="18" mode="indeterminate" />
+            } @else {
+              <span>
+                <mat-icon>lock_reset</mat-icon>
+                เปลี่ยนรหัสผ่าน
+              </span>
+            }
+          </button>
+        </div>
+      </form>
+    </mat-card>
+  }
+</div>

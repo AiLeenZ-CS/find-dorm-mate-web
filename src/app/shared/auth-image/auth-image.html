@@ -1,0 +1,7 @@
+@if (objectUrl() && !loadFailed()) {
+  <img [src]="objectUrl()" [alt]="alt()" />
+} @else if (fallback()) {
+  <img [src]="fallback()" [alt]="alt()" />
+} @else {
+  <div class="auth-image-fallback"></div>
+}

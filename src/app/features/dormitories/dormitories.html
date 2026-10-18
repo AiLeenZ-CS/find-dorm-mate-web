@@ -1,0 +1,90 @@
+<div class="page-header">
+  <div>
+    <h1>หอพักทั้งหมด</h1>
+    <p>คลิกดูรายละเอียดแต่ละหอพักเพื่ออนุมัติ/ปฏิเสธ</p>
+  </div>
+  <button mat-stroked-button (click)="refresh()">
+    <mat-icon>refresh</mat-icon>
+    รีเฟรช
+  </button>
+</div>
+
+<div class="filter-bar">
+  <mat-form-field appearance="outline" class="search-field">
+    <mat-label>ค้นหาด้วยชื่อหอพัก</mat-label>
+    <input matInput [(ngModel)]="search" (ngModelChange)="onSearchInput()" />
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="filter-field">
+    <mat-label>สถานะ</mat-label>
+    <mat-select [(ngModel)]="status" (selectionChange)="refresh()">
+      <mat-option value="All">ทั้งหมด</mat-option>
+      <mat-option value="Pending">ยังไม่ยืนยัน</mat-option>
+      <mat-option value="Approved">ยืนยันแล้ว</mat-option>
+      <mat-option value="Rejected">ถูกปฏิเสธ</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="filter-field">
+    <mat-label>เรียงตาม</mat-label>
+    <mat-select [(ngModel)]="sortOption">
+      @for (option of sortOptions; track option.value) {
+        <mat-option [value]="option.value">{{ option.label }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+</div>
+
+@if (loading()) {
+<div class="state-box">
+  <mat-progress-spinner diameter="36" mode="indeterminate" />
+  <span>กำลังโหลดข้อมูล...</span>
+</div>
+} @else if (dorms().length === 0) {
+<div class="state-box empty">
+  <mat-icon>apartment</mat-icon>
+  <span>ไม่พบข้อมูลหอพักที่ตรงกับเงื่อนไข</span>
+</div>
+} @else {
+<div class="dorm-grid">
+  @for (dorm of sortedDorms(); track dorm.Dorm_ID) {
+  <mat-card class="dorm-card" (click)="viewDetail(dorm)">
+    <div class="dorm-image">
+      @if (firstImage(dorm)) {
+      <app-auth-image [src]="firstImage(dorm)" [alt]="dorm.Dorm_Name" />
+      } @else {
+      <div class="placeholder">
+        <mat-icon>apartment</mat-icon>
+      </div>
+      }
+      <app-status-badge
+        class="image-badge"
+        [label]="statusLabel(dorm.Approval_Status)"
+        [variant]="statusVariant(dorm.Approval_Status)"
+        [icon]="statusIcon(dorm.Approval_Status)"
+      />
+    </div>
+
+    <div class="dorm-body">
+      <div class="dorm-name">{{ dorm.Dorm_Name }}</div>
+      <div class="detail-row">
+        <mat-icon>person_outline</mat-icon>
+        <span>{{ dorm.Owner ? ('@' + dorm.Owner.Username) : 'ไม่พบเจ้าของ' }}</span>
+      </div>
+      <div class="detail-row">
+        <mat-icon>event</mat-icon>
+        <span>ลงประกาศเมื่อ {{ dorm.Created_At | date: 'd MMM y' }}</span>
+      </div>
+    </div>
+
+    <div class="dorm-actions">
+      <button mat-stroked-button (click)="viewDetail(dorm)">
+        <mat-icon>visibility</mat-icon>
+        ดูรายละเอียด
+      </button>
+    </div>
+  </mat-card>
+  }
+</div>
+}

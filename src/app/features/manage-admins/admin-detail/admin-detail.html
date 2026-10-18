@@ -1,0 +1,79 @@
+<div class="page-container">
+  <div class="page-header">
+    <a mat-icon-button routerLink="/manage-admins" class="back-btn">
+      <mat-icon>arrow_back</mat-icon>
+    </a>
+    <div>
+      <h1>รายละเอียดบัญชี Admin</h1>
+      <p>ข้อมูลทั้งหมดของบัญชีนี้</p>
+    </div>
+  </div>
+
+  @if (loading()) {
+    <div class="state-box">
+      <mat-progress-spinner diameter="36" mode="indeterminate" />
+      <span>กำลังโหลดข้อมูล...</span>
+    </div>
+  } @else if (admin(); as a) {
+    <mat-card class="profile-card">
+      <div class="profile-header">
+        <app-auth-image
+          class="avatar"
+          [src]="a.Profile_Image"
+          [fallback]="'https://api.dicebear.com/7.x/initials/svg?seed=' + a.Username"
+          [alt]="a.Username"
+        />
+        <div class="profile-title">
+          <h2>{{ fullName(a) }}</h2>
+          <span class="username">&#64;{{ a.Username }}</span>
+        </div>
+        <div class="badge-stack">
+          <app-status-badge
+            [label]="a.User_Role === 'Master_Admin' ? 'Master Admin' : 'Admin'"
+            [variant]="a.User_Role === 'Master_Admin' ? 'info' : 'neutral'"
+            icon="verified_user"
+          />
+          <app-status-badge
+            [label]="a.Account_Status === 'Suspended' ? 'ถูกระงับ' : 'ใช้งานได้'"
+            [variant]="a.Account_Status === 'Suspended' ? 'danger' : 'success'"
+            [icon]="a.Account_Status === 'Suspended' ? 'block' : 'check_circle'"
+          />
+        </div>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="label">อีเมล</span>
+          <span class="value">{{ a.Email }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">สร้างเมื่อ</span>
+          <span class="value">{{ a.Created_At | date: 'd MMM y, HH:mm' }}</span>
+        </div>
+      </div>
+
+      <div class="actions">
+        @if (canToggleStatus) {
+          <button
+            mat-flat-button
+            class="action-btn"
+            [class.danger]="a.Account_Status === 'Active'"
+            [disabled]="processing()"
+            (click)="toggleStatus()"
+          >
+            @if (processing()) {
+              <mat-progress-spinner diameter="18" mode="indeterminate" />
+            } @else {
+              <span>{{ a.Account_Status === 'Active' ? 'ระงับบัญชีนี้' : 'เปิดใช้งานบัญชีนี้' }}</span>
+            }
+          </button>
+        } @else {
+          <span class="locked-hint" matTooltip="ไม่สามารถแก้ไขบัญชีตัวเองหรือ Master Admin ได้">
+            <mat-icon>lock</mat-icon>
+            ไม่สามารถแก้ไขบัญชีนี้ได้
+          </span>
+        }
+      </div>
+    </mat-card>
+  }
+</div>
