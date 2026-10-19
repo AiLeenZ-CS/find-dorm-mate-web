@@ -151,3 +151,20 @@ $bg-surface: #ffffff;
     }
   }
 }
+
+/* --- Responsive: มือถือ/แท็บเล็ตแนวตั้ง (≤768px) --- */
+@media (max-width: 768px) {
+  .page-header h1 {
+    font-size: 22px;
+  }
+
+  .stat-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .actions a {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+}

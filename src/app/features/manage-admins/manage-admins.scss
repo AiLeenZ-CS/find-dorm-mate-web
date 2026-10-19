@@ -75,12 +75,13 @@ $accent-color: #4f46e5; // Indigo
 .table-card {
   background: $bg-surface;
   border-radius: 16px;
-  overflow: hidden;
+  overflow-x: auto; // จอแคบ: เลื่อนตารางแนวนอนแทนการบีบคอลัมน์จนอ่านไม่ออก
   border: 1px solid $border-color;
   box-shadow: 0 2px 8px rgba(17, 24, 39, 0.05);
 
   table {
     width: 100%;
+    min-width: 640px;
     border-collapse: collapse;
   }
 
@@ -157,4 +158,21 @@ td.mat-mdc-cell .mat-mdc-button-base {
   font-size: 13px;
   height: 32px;
   padding: 0 12px;
+}
+
+/* --- Responsive: มือถือ/แท็บเล็ตแนวตั้ง (≤768px) --- */
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+
+    h1 {
+      font-size: 20px;
+    }
+
+    button {
+      justify-content: center;
+    }
+  }
 }

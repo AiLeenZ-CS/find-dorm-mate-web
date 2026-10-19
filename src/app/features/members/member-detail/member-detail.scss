@@ -183,3 +183,28 @@ $accent-color: #4f46e5;
     }
   }
 }
+
+/* --- Responsive: มือถือ/แท็บเล็ตแนวตั้ง (≤768px) --- */
+@media (max-width: 768px) {
+  .profile-card {
+    padding: 20px !important;
+  }
+
+  .profile-header {
+    flex-wrap: wrap;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 24px 0;
+  }
+
+  .actions {
+    justify-content: stretch;
+
+    button {
+      width: 100%;
+    }
+  }
+}

@@ -31,6 +31,19 @@ $text-dark: #111827; // ปรับให้เข้มขึ้นเพื�
   flex-direction: column;
 }
 
+/* --- ปุ่มแฮมเบอร์เกอร์เปิด/ปิด sidenav — โชว์เฉพาะจอ ≤768px (มือถือ/แท็บเล็ตแนวตั้ง) --- */
+.menu-toggle {
+  display: none;
+  margin-right: 8px;
+  color: $text-dark;
+}
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: inline-flex;
+  }
+}
+
 .brand {
   display: flex;
   align-items: center;
@@ -226,4 +239,40 @@ $text-dark: #111827; // ปรับให้เข้มขึ้นเพื�
   min-height: calc(100vh - 64px);
   background: $content-bg;
   box-sizing: border-box;
+}
+
+/* --- Responsive: มือถือ/แท็บเล็ตแนวตั้ง (≤768px) --- */
+@media (max-width: 768px) {
+  .content {
+    padding: 16px;
+  }
+
+  .topbar {
+    padding: 0 12px;
+  }
+
+  /* ซ่อนชื่อ/badge สิทธิ์ เหลือแค่รูปโปรไฟล์ ประหยัดพื้นที่แถบบนจอแคบ */
+  .user-name,
+  .user-role {
+    display: none;
+  }
+
+  .user-profile {
+    padding: 6px 8px;
+    margin-right: 8px;
+  }
+
+  /* ปุ่มออกจากระบบเหลือแค่ไอคอน ไม่พอแสดงข้อความเต็ม */
+  .logout-btn {
+    min-width: 0 !important;
+    padding: 0 10px !important;
+
+    mat-icon {
+      margin-right: 0 !important;
+    }
+
+    .logout-label {
+      display: none;
+    }
+  }
 }

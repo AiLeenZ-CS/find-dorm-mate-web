@@ -1,5 +1,10 @@
 <mat-sidenav-container class="shell">
-  <mat-sidenav mode="side" opened class="sidenav">
+  <mat-sidenav
+    [mode]="isMobile() ? 'over' : 'side'"
+    [opened]="sidenavOpened()"
+    (closedStart)="sidenavOpened.set(false)"
+    class="sidenav"
+  >
     <div class="brand">
       <div class="brand-badge">
         <mat-icon>apartment</mat-icon>
@@ -11,32 +16,32 @@
     </div>
 
     <mat-nav-list class="nav-list">
-      <a mat-list-item routerLink="/dashboard" routerLinkActive="active-link">
+      <a mat-list-item routerLink="/dashboard" routerLinkActive="active-link" (click)="onNavClick()">
         <mat-icon matListItemIcon>dashboard</mat-icon>
         <span matListItemTitle>ภาพรวม</span>
       </a>
-      <a mat-list-item routerLink="/members" routerLinkActive="active-link">
+      <a mat-list-item routerLink="/members" routerLinkActive="active-link" (click)="onNavClick()">
         <mat-icon matListItemIcon>group</mat-icon>
         <span matListItemTitle>สมาชิกทั้งหมด</span>
       </a>
-      <a mat-list-item routerLink="/owners" routerLinkActive="active-link">
+      <a mat-list-item routerLink="/owners" routerLinkActive="active-link" (click)="onNavClick()">
         <mat-icon matListItemIcon>fact_check</mat-icon>
         <span matListItemTitle>เจ้าของหอพักทั้งหมด</span>
       </a>
-      <a mat-list-item routerLink="/dormitories" routerLinkActive="active-link">
+      <a mat-list-item routerLink="/dormitories" routerLinkActive="active-link" (click)="onNavClick()">
         <mat-icon matListItemIcon>apartment</mat-icon>
         <span matListItemTitle>หอพักทั้งหมด</span>
       </a>
-      <a mat-list-item routerLink="/reports" routerLinkActive="active-link">
+      <a mat-list-item routerLink="/reports" routerLinkActive="active-link" (click)="onNavClick()">
         <mat-icon matListItemIcon>shield</mat-icon>
         <span matListItemTitle>รายงานผู้ใช้</span>
       </a>
-      <a mat-list-item routerLink="/facilities" routerLinkActive="active-link">
+      <a mat-list-item routerLink="/facilities" routerLinkActive="active-link" (click)="onNavClick()">
         <mat-icon matListItemIcon>meeting_room</mat-icon>
         <span matListItemTitle>สิ่งอำนวยความสะดวก</span>
       </a>
       @if (auth.isMasterAdmin()) {
-      <a mat-list-item routerLink="/manage-admins" routerLinkActive="active-link">
+      <a mat-list-item routerLink="/manage-admins" routerLinkActive="active-link" (click)="onNavClick()">
         <mat-icon matListItemIcon>admin_panel_settings</mat-icon>
         <span matListItemTitle>จัดการ Admin</span>
       </a>
@@ -46,6 +51,11 @@
 
   <mat-sidenav-content>
     <mat-toolbar class="topbar">
+      <!-- ปุ่มแฮมเบอร์เกอร์ — โชว์เฉพาะจอมือถือ/แท็บเล็ต (ดูเงื่อนไขใน shell.scss) -->
+      <button mat-icon-button class="menu-toggle" (click)="toggleSidenav()" aria-label="เปิด/ปิดเมนู">
+        <mat-icon>menu</mat-icon>
+      </button>
+
       <!-- ตัวผลักให้เนื้อหาด้านล่างไปอยู่ชิดขวา -->
       <span class="spacer"></span>
 
@@ -66,7 +76,7 @@
       <!-- ปุ่มออกจากระบบ (แยกออกมาวางต่างหาก) -->
       <button mat-stroked-button class="logout-btn" (click)="logout()">
         <mat-icon>logout</mat-icon>
-        ออกจากระบบ
+        <span class="logout-label">ออกจากระบบ</span>
       </button>
     </mat-toolbar>
 

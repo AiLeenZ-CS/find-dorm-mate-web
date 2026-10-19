@@ -146,3 +146,24 @@ $accent-color: #4f46e5;
   color: $text-muted;
   font-size: 13px;
 }
+
+/* --- Responsive: มือถือ/แท็บเล็ตแนวตั้ง (≤768px) --- */
+@media (max-width: 768px) {
+  .facility-grid {
+    // minmax(360px, 1fr) เดิมกว้างเกินจอมือถือส่วนใหญ่ (เช่น 375px) ทำให้ล้นแนวนอน
+    grid-template-columns: 1fr;
+  }
+
+  .facility-card {
+    padding: 18px;
+  }
+
+  .add-row {
+    flex-direction: column;
+    align-items: stretch;
+
+    button {
+      height: 44px;
+    }
+  }
+}

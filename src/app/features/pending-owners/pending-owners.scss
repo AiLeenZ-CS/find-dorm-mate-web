@@ -113,6 +113,7 @@ $accent-color: #6366f1;
 
   table {
     width: 100%;
+    min-width: 640px;
     border-collapse: collapse;
   }
 
@@ -193,4 +194,28 @@ td.mat-mdc-cell .mat-mdc-button-base {
   font-size: 13px;
   height: 32px;
   padding: 0 12px;
+}
+
+/* --- Responsive: มือถือ/แท็บเล็ตแนวตั้ง (≤768px) --- */
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+
+    h1 {
+      font-size: 20px;
+    }
+  }
+
+  .filter-bar {
+    .search-field {
+      min-width: 0;
+      flex: 1 1 100%;
+    }
+
+    .filter-field {
+      width: 100%;
+    }
+  }
 }

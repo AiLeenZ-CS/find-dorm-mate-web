@@ -17,6 +17,16 @@ $danger-color: #ef4444;
   text-align: center;
 }
 
+/* --- Responsive: จอแคบกว่า min-width เดิม (360px) ล้นได้ ต้องลดระยะขอบ+ความกว้างขั้นต่ำ --- */
+@media (max-width: 420px) {
+  .confirm-dialog {
+    min-width: 0;
+    width: 100%;
+    padding: 28px 20px 16px;
+    box-sizing: border-box;
+  }
+}
+
 .icon-badge {
   width: 56px;
   height: 56px;

@@ -236,3 +236,29 @@ $accent-color: #6366f1;
     box-shadow: none;
   }
 }
+
+/* --- Responsive: มือถือ/แท็บเล็ตแนวตั้ง (≤768px) --- */
+@media (max-width: 768px) {
+  .profile-card,
+  .password-card {
+    padding: 20px !important;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .actions {
+    flex-wrap: wrap;
+
+    .forgot-link {
+      margin-right: 0;
+      flex: 1 1 100%;
+    }
+
+    .save-btn {
+      flex: 1;
+    }
+  }
+}

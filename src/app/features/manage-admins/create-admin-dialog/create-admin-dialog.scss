@@ -168,3 +168,27 @@ mat-dialog-actions {
     }
   }
 }
+
+/* --- Responsive: มือถือ/แท็บเล็ตแนวตั้ง (≤768px) --- */
+@media (max-width: 600px) {
+  .form-grid {
+    // min-width 420px เดิมทำให้ dialog ล้นจอมือถือ (กว้างกว่าหน้าจอเกือบทุกรุ่น)
+    min-width: 0;
+    width: 100%;
+    padding: 8px 20px 20px;
+    box-sizing: border-box;
+  }
+
+  .name-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .dialog-header {
+    padding: 20px 20px 8px;
+  }
+
+  mat-dialog-actions {
+    padding: 16px 20px 20px;
+  }
+}

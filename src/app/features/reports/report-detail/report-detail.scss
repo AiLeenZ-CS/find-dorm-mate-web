@@ -208,3 +208,19 @@ $max-content-width: 720px; /* ความกว้างกำลังดี�
     }
   }
 }
+
+/* --- Responsive: มือถือ/แท็บเล็ตแนวตั้ง (≤768px) --- */
+@media (max-width: 768px) {
+  .report-card {
+    padding: 20px !important;
+    gap: 20px;
+  }
+
+  .actions {
+    justify-content: stretch;
+
+    button {
+      width: 100%;
+    }
+  }
+}
