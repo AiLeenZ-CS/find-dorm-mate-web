@@ -1,3 +1,5 @@
+// 📄 ไฟล์นี้ทำหน้าที่: เรียก backend API ของฟีเจอร์จัดการรายงาน (reports) ทั้งดูรายชื่อ
+// (กรองตามสถานะ) ดูรายละเอียด และอัปเดตสถานะรายงานว่าจัดการแล้วหรือยัง
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';

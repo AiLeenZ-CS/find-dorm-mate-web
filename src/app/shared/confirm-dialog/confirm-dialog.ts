@@ -1,3 +1,5 @@
+// 📄 ไฟล์นี้ทำหน้าที่: ไดอะล็อกยืนยันกลางที่ใช้ร่วมกันทุกหน้าก่อนทำรายการสำคัญ
+// (ระงับ/เปิดใช้งานบัญชี, อนุมัติ, ปิด/เปิดเรื่องรายงาน ฯลฯ)
 import { Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';

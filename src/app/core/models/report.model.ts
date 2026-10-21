@@ -1,3 +1,5 @@
+// 📄 ไฟล์นี้ทำหน้าที่: กำหนดรูปร่างข้อมูลรายงาน (report) ที่ผู้ใช้แจ้งเข้ามา ตามที่ backend
+// (/api/admin/reports) ส่งกลับมา รวมข้อมูลผู้รายงาน ผู้ถูกรายงาน และการจองที่เกี่ยวข้อง
 export interface UserReport {
   Report_ID: number;
   Reason: string | null;

@@ -1,3 +1,5 @@
+// 📄 ไฟล์นี้ทำหน้าที่: หน้ารายการหอพักทั้งหมดในระบบ ค้นหา/กรองตามสถานะ/จัดเรียง
+// แล้วกดเข้าไปดูรายละเอียดแต่ละหอพักต่อได้ที่ dormitory-detail
 import { Component, OnInit, computed, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';

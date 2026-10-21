@@ -1,3 +1,5 @@
+// 📄 ไฟล์นี้ทำหน้าที่: เรียก backend API ของฟีเจอร์จัดการสิ่งอำนวยความสะดวก (facilities)
+// ทั้งดูรายชื่อ เพิ่มใหม่ และลบ
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';

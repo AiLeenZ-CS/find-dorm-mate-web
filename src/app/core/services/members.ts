@@ -1,3 +1,5 @@
+// 📄 ไฟล์นี้ทำหน้าที่: เรียก backend API ของฟีเจอร์จัดการสมาชิก (members) ทั้งดูรายชื่อ
+// (ค้นหา/กรองสถานะ) ดูรายละเอียด และเปิด/ปิดการใช้งานบัญชีสมาชิก
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';

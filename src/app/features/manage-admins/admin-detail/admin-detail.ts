@@ -1,3 +1,5 @@
+// 📄 ไฟล์นี้ทำหน้าที่: หน้ารายละเอียดบัญชี Admin ทีละคน (เข้าถึงได้เฉพาะ Master Admin)
+// ดูข้อมูลและสั่งระงับ/เปิดใช้งานบัญชี Admin คนอื่น
 import { Component, OnInit, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';

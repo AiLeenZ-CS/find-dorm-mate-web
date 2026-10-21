@@ -1,3 +1,5 @@
+// 📄 ไฟล์นี้ทำหน้าที่: หน้ารายการคำร้องขอเป็นเจ้าของหอพักทั้งหมด ค้นหา/กรองตามสถานะ/จัดเรียง
+// แล้วกดเข้าไปตรวจและอนุมัติ/ปฏิเสธแต่ละรายที่ owner-detail
 import { Component, OnInit, computed, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';

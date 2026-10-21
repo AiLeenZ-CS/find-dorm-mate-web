@@ -1,3 +1,5 @@
+// 📄 ไฟล์นี้ทำหน้าที่: กันไม่ให้ Admin ธรรมดาเข้าหน้าที่สงวนไว้สำหรับ Master Admin
+// เช่นหน้า manage-admins ใน app.routes.ts ถ้าสิทธิ์ไม่พอจะเด้งกลับ /dashboard
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { Auth } from '../services/auth';

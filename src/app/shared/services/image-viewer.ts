@@ -1,3 +1,5 @@
+// 📄 ไฟล์นี้ทำหน้าที่: บริการกลางสำหรับเปิดรูปที่ต้องแนบ JWT (เช่นบัตรประชาชน/เอกสารสิทธิ์)
+// แบบเต็มจอในแท็บใหม่ ใช้ร่วมกันโดยหน้า owner-detail และ dormitory-detail
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';

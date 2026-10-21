@@ -1,3 +1,5 @@
+// 📄 ไฟล์นี้ทำหน้าที่: ไดอะล็อกเล็กให้แอดมินกรอกเหตุผล (admin note) ก่อนปฏิเสธหอพัก
+// เรียกใช้จากหน้า dormitory-detail เมื่อกดปุ่มปฏิเสธ
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {

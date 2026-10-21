@@ -1,3 +1,5 @@
+// 📄 ไฟล์นี้ทำหน้าที่: จัดการ session การล็อกอินของแอดมิน (เรียก /api/auth/login, เก็บ/ล้าง
+// token และข้อมูลผู้ใช้ใน localStorage) และเปิด signal สถานะล็อกอิน/สิทธิ์ให้ guard และหน้าอื่นๆ ใช้
 import { Injectable, computed, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';

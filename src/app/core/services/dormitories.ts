@@ -1,3 +1,5 @@
+// 📄 ไฟล์นี้ทำหน้าที่: เรียก backend API ของฟีเจอร์จัดการหอพัก ทั้งดูรายชื่อ/รายละเอียด
+// และอนุมัติหรือปฏิเสธคำขอลงทะเบียนหอพักจากเจ้าของหอ
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';

@@ -1,3 +1,5 @@
+// 📄 ไฟล์นี้ทำหน้าที่: กำหนดรูปร่างข้อมูลบัญชีสมาชิก (Member) ตามที่ backend
+// (/api/admin/members) ส่งกลับมา ทั้งแบบย่อสำหรับตารางและแบบเต็มสำหรับหน้ารายละเอียด
 export interface MemberAccount {
   Member_ID: number;
   Username: string;

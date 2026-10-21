@@ -1,3 +1,5 @@
+// 📄 ไฟล์นี้ทำหน้าที่: หน้าล็อกอินเข้าระบบแอดมิน รับอีเมล/รหัสผ่านแล้วเรียก Auth service
+// ล็อกอินสำเร็จแล้วพาไปหน้า dashboard
 import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';

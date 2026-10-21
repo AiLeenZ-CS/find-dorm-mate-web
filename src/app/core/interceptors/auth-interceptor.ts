@@ -1,3 +1,5 @@
+// 📄 ไฟล์นี้ทำหน้าที่: HTTP interceptor ที่แนบ JWT token เป็น Authorization header
+// ให้ทุก request ที่ยิงไปหา backend และดักกรณี token หมดอายุ (401) เพื่อเด้งไปหน้า login
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';

@@ -1,3 +1,5 @@
+// 📄 ไฟล์นี้ทำหน้าที่: หน้ารายชื่อบัญชี Admin ทั้งหมดในระบบ (Master Admin) จัดเรียง/เพิ่ม Admin
+// ใหม่ผ่าน create-admin-dialog และกดเข้าไปดูรายละเอียดแต่ละคนได้
 import { Component, OnInit, computed, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';

@@ -1,3 +1,5 @@
+// 📄 ไฟล์นี้ทำหน้าที่: เรียก backend API ของฟีเจอร์จัดการบัญชี Admin (manage-admins)
+// ทั้งดูรายชื่อ ดูรายละเอียด สร้างใหม่ และเปิด/ปิดการใช้งานบัญชี Admin
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';

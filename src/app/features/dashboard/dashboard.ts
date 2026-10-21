@@ -1,3 +1,5 @@
+// 📄 ไฟล์นี้ทำหน้าที่: หน้า Dashboard หลังล็อกอิน แสดงสรุปจำนวนรายการที่รอดำเนินการ
+// (เจ้าของหอรอตรวจ, หอพักรอตรวจ, รายงานรอดำเนินการ, จำนวน Admin) เป็นจุดเริ่มต้นของแอดมิน
 import { Component, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';

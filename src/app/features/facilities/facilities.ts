@@ -1,3 +1,5 @@
+// 📄 ไฟล์นี้ทำหน้าที่: หน้าจัดการรายการสิ่งอำนวยความสะดวก (facility) ของหอพักและของห้องพัก
+// เพิ่ม/ลบชื่อสิ่งอำนวยความสะดวกที่เจ้าของหอจะเลือกใช้ตอนลงประกาศ
 import { Component, OnInit, computed, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';

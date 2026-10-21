@@ -1,3 +1,5 @@
+// 📄 ไฟล์นี้ทำหน้าที่: ไดอะล็อกเล็กให้แอดมินกรอกเหตุผล (admin note) ก่อนปฏิเสธคำร้องขอเป็นเจ้าของหอพัก
+// เรียกใช้จากหน้า owner-detail เมื่อกดปุ่มปฏิเสธ
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {

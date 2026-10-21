@@ -1,3 +1,5 @@
+// 📄 ไฟล์นี้ทำหน้าที่: จุดเริ่มต้น (entry point) ของเว็บแอดมิน — bootstrap มาตรฐานของ Angular
+// (standalone bootstrapApplication) พร้อมเช็คกันลืมว่า production build ยังชี้ apiUrl ไปที่ localhost อยู่หรือเปล่า
 import { bootstrapApplication } from '@angular/platform-browser';
 import { appConfig } from './app/app.config';
 import { App } from './app/app';

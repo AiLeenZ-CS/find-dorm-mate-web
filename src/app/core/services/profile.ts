@@ -1,3 +1,5 @@
+// 📄 ไฟล์นี้ทำหน้าที่: เรียก backend API ของฟีเจอร์โปรไฟล์ของผู้ใช้ Admin เอง ทั้งดู/แก้ไข
+// ข้อมูลส่วนตัว อัปโหลดรูปโปรไฟล์ เปลี่ยนรหัสผ่าน และขอรีเซ็ตรหัสผ่าน
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';

@@ -1,3 +1,5 @@
+// 📄 ไฟล์นี้ทำหน้าที่: กำหนดเส้นทาง (route) ของทุกหน้าในแอดมิน ว่า path ไหนโหลดคอมโพเนนต์ไหน
+// และหน้าไหนต้องผ่าน authGuard/roleGuard ก่อนเข้าได้
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth-guard';
 import { roleGuard } from './core/guards/role-guard';

@@ -1,3 +1,5 @@
+// 📄 ไฟล์นี้ทำหน้าที่: หน้ารายการรายงาน (report) ที่ผู้ใช้แจ้งเข้ามาทั้งหมด กรองตามสถานะ/จัดเรียง
+// แล้วกดเข้าไปดูรายละเอียดและจัดการแต่ละเรื่องที่ report-detail
 import { Component, OnInit, computed, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';

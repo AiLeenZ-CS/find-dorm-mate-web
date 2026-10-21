@@ -1,3 +1,5 @@
+// 📄 ไฟล์นี้ทำหน้าที่: คอมโพเนนต์ภาพกลางสำหรับโชว์รูปที่ต้องแนบ JWT (ผ่าน image-proxy)
+// ใช้แทน <img> ตรงๆ ในทุกหน้าที่ต้องแสดงรูปโปรไฟล์/เอกสารของผู้ใช้
 import { Component, DestroyRef, effect, inject, input, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';

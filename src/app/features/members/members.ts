@@ -1,3 +1,5 @@
+// 📄 ไฟล์นี้ทำหน้าที่: หน้ารายชื่อสมาชิก (ผู้ใช้ทั่วไป) ทั้งหมด ค้นหา/กรองตามสถานะ/จัดเรียง
+// แล้วกดเข้าไปดูรายละเอียดแต่ละคนได้ที่ member-detail
 import { Component, OnInit, computed, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';

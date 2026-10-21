@@ -1,3 +1,5 @@
+// 📄 ไฟล์นี้ทำหน้าที่: หน้ารายละเอียดบัญชีสมาชิก (ผู้ใช้ทั่วไป) ทีละคน
+// ดูข้อมูลส่วนตัวและสั่งระงับ/เปิดใช้งานบัญชีสมาชิกคนนั้น
 import { Component, OnInit, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';

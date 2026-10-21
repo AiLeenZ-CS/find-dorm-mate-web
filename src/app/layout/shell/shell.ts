@@ -1,3 +1,5 @@
+// 📄 ไฟล์นี้ทำหน้าที่: โครง layout หลักของแอดมิน (sidenav เมนู + topbar) ที่ครอบทุกหน้า
+// หลังล็อกอิน ให้ RouterOutlet แสดงเนื้อหาแต่ละหน้าอยู่ภายใน
 import { Component, OnInit, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { BreakpointObserver } from '@angular/cdk/layout';

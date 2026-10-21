@@ -1,3 +1,5 @@
+// 📄 ไฟล์นี้ทำหน้าที่: หน้าโปรไฟล์ของแอดมินที่ล็อกอินอยู่เอง แก้ไขชื่อ/เบอร์โทร/รูปโปรไฟล์
+// เปลี่ยนรหัสผ่าน และขอรีเซ็ตรหัสผ่านทางอีเมล
 import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';

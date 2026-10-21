@@ -1,3 +1,5 @@
+// 📄 ไฟล์นี้ทำหน้าที่: หน้ารายละเอียดหอพักทีละรายการ ดูข้อมูล/รูป/เอกสารสิทธิ์ครอบครอง
+// และให้แอดมินอนุมัติหรือปฏิเสธการลงประกาศหอพักนั้น
 import { Component, OnInit, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';

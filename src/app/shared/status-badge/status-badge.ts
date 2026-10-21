@@ -1,3 +1,5 @@
+// 📄 ไฟล์นี้ทำหน้าที่: คอมโพเนนต์ป้ายแสดงสถานะกลาง (เช่น Pending/Approved/Rejected)
+// ใช้ร่วมกันทุกหน้า list และ detail เพื่อให้หน้าตาป้ายสถานะตรงกันทั้งแอป
 import { Component, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 

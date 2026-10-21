@@ -1,3 +1,5 @@
+// 📄 ไฟล์นี้ทำหน้าที่: หน้ารายละเอียดคำร้องขอเป็นเจ้าของหอพักทีละราย ดูบัตรประชาชน
+// แล้วให้แอดมินอนุมัติ/ปฏิเสธคำร้อง หรือระงับ/เปิดใช้งานบัญชีเจ้าของหอรายนั้น
 import { Component, OnInit, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';

@@ -1,3 +1,5 @@
+// 📄 ไฟล์นี้ทำหน้าที่: หน้ารายละเอียดรายงาน (report) ที่ผู้ใช้แจ้งเข้ามาทีละเรื่อง
+// ให้แอดมินดูรายละเอียดแล้วปิด/เปิดเรื่องกลับมารอดำเนินการได้
 import { Component, OnInit, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';

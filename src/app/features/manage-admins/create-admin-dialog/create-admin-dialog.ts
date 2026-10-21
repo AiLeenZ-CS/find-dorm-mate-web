@@ -1,3 +1,5 @@
+// 📄 ไฟล์นี้ทำหน้าที่: ไดอะล็อกฟอร์มสร้างบัญชี Admin ใหม่ (username/email/password/ชื่อ-นามสกุล)
+// เรียกใช้จากหน้า manage-admins
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
